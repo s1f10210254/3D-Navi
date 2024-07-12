@@ -15,7 +15,7 @@ const TravelDestination = () => {
 
   return (
     <div>
-      <h1>Destination</h1>
+      <h1>TravelDestination</h1>
       <input value={destination} onChange={(e) => setDestination(e.target.value)} />
       <button onClick={serch}>検索</button>
       <p>{response}</p>

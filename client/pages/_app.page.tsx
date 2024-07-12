@@ -21,20 +21,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   //   I18n.putVocabularies(translations);
   //   I18n.setLanguage(navigator.language.split('-')[0]);
-  // }, []);
 
   return (
     <>
       <Head>
         <title>{APP_NAME}</title>
       </Head>
-      {/* <SafeHydrate>
-        <Authenticator.Provider>
-          <AuthLoader /> */}
       <Component {...pageProps} />
-      {/* </Authenticator.Provider>
-      </SafeHydrate> */}
-      {/* <Home /> */}
     </>
   );
 }
