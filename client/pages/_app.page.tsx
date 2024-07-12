@@ -1,12 +1,11 @@
 import '@aws-amplify/ui-react/styles.css';
 import { APP_NAME } from 'common/constants';
+import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import 'styles/globals.css';
 import '../styles/globals.css';
-import Home from './index.page';
 
-// function MyApp({ Component, pageProps }: AppProps) {
-function MyApp() {
+function MyApp({ Component, pageProps }: AppProps) {
   // const SafeHydrate = dynamic(() => import('../components/SafeHydrate'), { ssr: false });
 
   // useEffect(() => {
@@ -31,11 +30,11 @@ function MyApp() {
       </Head>
       {/* <SafeHydrate>
         <Authenticator.Provider>
-          <AuthLoader />
-          <Component {...pageProps} />
-        </Authenticator.Provider>
+          <AuthLoader /> */}
+      <Component {...pageProps} />
+      {/* </Authenticator.Provider>
       </SafeHydrate> */}
-      <Home />
+      {/* <Home /> */}
     </>
   );
 }
