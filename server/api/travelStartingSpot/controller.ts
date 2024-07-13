@@ -1,10 +1,10 @@
-import { travelStartingSpotUseCase } from 'domain/travelStartingSpot/useCase/travelStartingSpotUseCase';
+import { travelSpotUseCase } from 'domain/travelSpot/useCase/travelSpotUseCase';
 import { defineController } from './$relay';
 
 export default defineController(() => ({
   get: () => ({ status: 200, body: 'Hello' }),
   post: ({ body }) => ({
     status: 200,
-    body: travelStartingSpotUseCase.test(body.destination),
+    body: travelSpotUseCase.test(body.destination),
   }),
 }));
