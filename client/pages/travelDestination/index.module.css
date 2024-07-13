@@ -10,13 +10,20 @@
   overflow: auto;
 }
 
-.departureBox {
-  display: flex;
-  margin: 15px;
+.sel {
+  width: 184px;
+
+  /* padding: 10px; */
+  color: #757373;
+  border: 1px solid #b6b5b5;
 }
 
-.depart {
-  width: 37px;
+.inp {
+  border: 1px solid #b6b5b5;
+}
+
+.subject {
+  width: 100px;
   height: 30px;
   color: white;
   text-align: center;
@@ -24,7 +31,7 @@
   border-radius: 5%;
 }
 
-.arrivalBox {
+.box {
   display: flex;
   margin: 15px;
 }
