@@ -28,3 +28,15 @@
   display: flex;
   margin: 15px;
 }
+
+.serch {
+  width: 100px;
+  height: 30px;
+  color: white;
+  background-color: #f38511;
+  border: 0;
+}
+
+.serch:hover {
+  background-color: #ff5700;
+}

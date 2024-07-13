@@ -25,7 +25,9 @@ const TravelDestination = () => {
         <div className={styles.depart}>到着</div>
         <input value={destination} onChange={(e) => setDestination(e.target.value)} />
       </div>
-      <button onClick={serch}>検索</button>
+      <button onClick={serch} className={styles.serch}>
+        検索
+      </button>
       <p>{response}</p>
     </div>
   );
