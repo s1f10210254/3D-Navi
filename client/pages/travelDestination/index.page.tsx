@@ -7,7 +7,7 @@ const TravelDestination = () => {
 
   const serch = async () => {
     console.log('destination', destination);
-    await apiClient.travel_starting_spot.post({ body: { destination } }).then((res) => {
+    await apiClient.travelStartingSpot.post({ body: { destination } }).then((res) => {
       console.log('res', res);
       setResponse(res.body);
     });
