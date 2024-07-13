@@ -1,3 +1,4 @@
+import styles from 'pages/travelDestination/index.module.css';
 import { useState } from 'react';
 import { apiClient } from 'utils/apiClient';
 
@@ -14,9 +15,16 @@ const TravelDestination = () => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h1>TravelDestination</h1>
-      <input value={destination} onChange={(e) => setDestination(e.target.value)} />
+      <div className={styles.departureBox}>
+        <div className={styles.depart}>出発</div>
+        <input />
+      </div>
+      <div className={styles.arrivalBox}>
+        <div className={styles.depart}>到着</div>
+        <input value={destination} onChange={(e) => setDestination(e.target.value)} />
+      </div>
       <button onClick={serch}>検索</button>
       <p>{response}</p>
     </div>
