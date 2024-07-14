@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+
+  /* justify-content: center; */
   width: -webkit-fill-available;
   height: -webkit-fill-available;
   min-height: 100vh;
@@ -19,7 +20,12 @@
 }
 
 .inp {
+  padding-left: 5%;
   border: 1px solid #b6b5b5;
+}
+
+.inp[type='text']::placeholder {
+  color: #999; /* プレースホルダーの色を薄いグレーに設定 */
 }
 
 .subject {
