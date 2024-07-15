@@ -3,13 +3,13 @@ import { apiClient } from 'utils/apiClient';
 
 const TravelDestination = () => {
   const [destination, setDestination] = useState<string>('');
-  const [response, setResponse] = useState<string>('');
+  const [response, setResponse] = useState<string[]>([]);
 
   const serch = async () => {
     console.log('destination', destination);
-    await apiClient.travelStartingSpot.post({ body: { destination } }).then((res) => {
+    await apiClient.travelStartingSpot.$post({ body: { destination } }).then((res) => {
       console.log('res', res);
-      setResponse(res.body);
+      setResponse(res);
     });
   };
 
@@ -18,7 +18,11 @@ const TravelDestination = () => {
       <h1>TravelDestination</h1>
       <input value={destination} onChange={(e) => setDestination(e.target.value)} />
       <button onClick={serch}>検索</button>
-      <p>{response}</p>
+      <ul>
+        {response.map((spot, index) => (
+          <li key={index}>{spot}</li>
+        ))}
+      </ul>
     </div>
   );
 };

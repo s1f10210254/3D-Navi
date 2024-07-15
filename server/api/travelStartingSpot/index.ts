@@ -6,6 +6,6 @@ export type Methods = DefineMethods<{
   };
   post: {
     reqBody: { destination: string };
-    resBody: string;
+    resBody: string[];
   };
 }>;

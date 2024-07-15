@@ -3,8 +3,8 @@ import { defineController } from './$relay';
 
 export default defineController(() => ({
   get: () => ({ status: 200, body: 'Hello' }),
-  post: ({ body }) => ({
-    status: 200,
-    body: travelSpotUseCase.test(body.destination),
+  post: async ({ body }) => ({
+    status: 201,
+    body: await travelSpotUseCase.fetchTravelSpots(body.destination),
   }),
 }));
