@@ -1,5 +1,7 @@
+import { Loading } from 'components/loading/Loading';
 import MapBoxMap from 'features/map/MapBoxMap';
-import type { TouristSpot } from 'features/map/types';
+import type { LatAndLng, TouristSpot } from 'features/map/types';
+import { useEffect, useState } from 'react';
 
 // デモデータ
 const destinationSpots: TouristSpot[] = [
@@ -38,10 +40,23 @@ const destinationSpots: TouristSpot[] = [
 ];
 
 const SightseeingMap = () => {
+  const [currentLocation, setCurrentLocation] = useState<LatAndLng | null>(null);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      setCurrentLocation({ latitude, longitude });
+    });
+  }, []);
+
+  if (!currentLocation) {
+    return <Loading visible />;
+  }
+
   return (
     <div>
       <h1>観光地マップ</h1>
-      <MapBoxMap allDestinationSpots={destinationSpots} />
+      <MapBoxMap allDestinationSpots={destinationSpots} currentLocation={currentLocation} />
     </div>
   );
 };
