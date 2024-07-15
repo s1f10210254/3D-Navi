@@ -1,4 +1,4 @@
-type LatAndLng = {
+export type LatAndLng = {
   latitude: number;
   longitude: number;
 };
