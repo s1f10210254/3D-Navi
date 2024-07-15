@@ -21,6 +21,7 @@ const TravelDestination = () => {
         TravelDestination
         <br />
       </h1>
+      {/* ここになにかしらのアイコン画像を入れいる */}
       <img src={imageUrl} alt="Google Image" style={{ width: '300px', height: 'auto' }} />
       <p>行きたい場所を入力してください</p>
       {/* <div className={styles.box}>
