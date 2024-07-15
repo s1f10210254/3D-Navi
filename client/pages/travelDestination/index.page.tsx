@@ -4,12 +4,12 @@ import { apiClient } from 'utils/apiClient';
 
 const TravelDestination = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [travelSpot, setTravelSpot] = useState<TravelSpot[]>([]);
+  const [travelSpots, setTravelSpots] = useState<TravelSpot[]>([]);
 
   const fetchTravelSpots = async () => {
     console.log('searchQuery', searchQuery);
     await apiClient.travelStartingSpot.$post({ body: { destination: searchQuery } }).then((res) => {
-      setTravelSpot(res);
+      setTravelSpots(res);
     });
   };
   return (
@@ -18,7 +18,7 @@ const TravelDestination = () => {
       <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
       <button onClick={fetchTravelSpots}>検索</button>
       <ul>
-        {travelSpot.map((spot, index) => (
+        {travelSpots.map((spot, index) => (
           <li key={index} style={{ borderBottom: '1px solid #ccc', padding: '20px 0' }}>
             <h2 style={{ margin: '0', fontSize: '1.5em' }}>名前：{spot.name}</h2>
             <p style={{ margin: '5px 0', color: '#555' }}>概要：{spot.description}</p>
