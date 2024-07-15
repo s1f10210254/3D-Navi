@@ -12,8 +12,6 @@ export const travelSpotUseCase = {
       const encodedQuery = encodeURIComponent(query);
       const url = `https://www.japan47go.travel/ja/search/result?keyword=${encodedQuery}`;
 
-      console.log('url:', url);
-
       const { data } = await axios.get(url, {
         headers: {
           'User-Agent':
@@ -23,8 +21,6 @@ export const travelSpotUseCase = {
           Connection: 'keep-alive',
         },
       });
-
-      // console.log(data);
 
       const $: CheerioAPI = cheerio.load(data);
 
