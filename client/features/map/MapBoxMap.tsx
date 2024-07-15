@@ -147,6 +147,8 @@ const MapBoxMap = ({ allDestinationSpots, currentLocation }: MapBoxMapProps) => 
         spot.location.longitude,
         spot.location.latitude,
       ]);
+      // waypointsの先頭に現在地を追加
+      waypoints.unshift([currentLocation.longitude, currentLocation.latitude]);
       if (waypoints.length > 1) {
         await displayRoute(waypoints);
       } else {
