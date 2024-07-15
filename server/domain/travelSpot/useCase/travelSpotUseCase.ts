@@ -22,7 +22,6 @@ export const travelSpotUseCase = {
       $('#main > div.search_result > div.item.spot_list > ul > li > p > a ').each(
         (index, element) => {
           if (index < 3) {
-            // 10個までの結果を取得
             const spotName = $(element).text().trim();
             travelNames.push(spotName);
             const href = $(element).attr('href');
