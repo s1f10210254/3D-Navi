@@ -1,15 +1,16 @@
 import MapboxLanguage from '@mapbox/mapbox-gl-language';
 import mapboxgl from 'mapbox-gl';
 import { useEffect, useRef, useState } from 'react';
-import type { TouristSpot } from './types';
+import type { LatAndLng, TouristSpot } from './types';
 
 type MapBoxMapProps = {
   allDestinationSpots: TouristSpot[];
+  currentLocation: LatAndLng;
 };
 
 const MAPBOX_BASE_URL = 'https://api.mapbox.com';
 
-const MapBoxMap = ({ allDestinationSpots }: MapBoxMapProps) => {
+const MapBoxMap = ({ allDestinationSpots, currentLocation }: MapBoxMapProps) => {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const markerRef = useRef<HTMLDivElement[]>([]);
@@ -34,6 +35,16 @@ const MapBoxMap = ({ allDestinationSpots }: MapBoxMapProps) => {
 
     mapRef.current.addControl(new mapboxgl.NavigationControl());
 
+    // 現在地のマーカー
+    const marker = new mapboxgl.Marker({ color: 'green' })
+      .setLngLat([currentLocation.longitude, currentLocation.latitude])
+      .setPopup(new mapboxgl.Popup().setHTML('現在地'))
+      .addTo(mapRef.current);
+
+    marker.togglePopup();
+    // カメラを現在地に移動
+    mapRef.current.setCenter([currentLocation.longitude, currentLocation.latitude]);
+
     // マーカーの追加
     allDestinationSpots.forEach((spot, index) => {
       const markerElement = markerRef.current[index];
@@ -48,7 +59,7 @@ const MapBoxMap = ({ allDestinationSpots }: MapBoxMapProps) => {
     return () => {
       if (mapRef.current) mapRef.current.remove();
     };
-  }, [allDestinationSpots]);
+  }, [allDestinationSpots, currentLocation]);
 
   //ルートの取得と表示
   const displayRoute = async (waypoints: [number, number][]) => {
@@ -136,6 +147,8 @@ const MapBoxMap = ({ allDestinationSpots }: MapBoxMapProps) => {
         spot.location.longitude,
         spot.location.latitude,
       ]);
+      // waypointsの先頭に現在地を追加
+      waypoints.unshift([currentLocation.longitude, currentLocation.latitude]);
       if (waypoints.length > 1) {
         await displayRoute(waypoints);
       } else {
