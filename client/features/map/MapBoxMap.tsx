@@ -1,6 +1,7 @@
 import MapboxLanguage from '@mapbox/mapbox-gl-language';
 import mapboxgl from 'mapbox-gl';
 import { useEffect, useRef, useState } from 'react';
+import styles from './MapBoxMap.module.css';
 import type { LatAndLng, TouristSpot } from './types';
 
 type MapBoxMapProps = {
@@ -169,13 +170,7 @@ const MapBoxMap = ({ allDestinationSpots, currentLocation }: MapBoxMapProps) => 
             markerRef.current[index] = el;
           }}
           onClick={() => onMarkerClick(index)}
-          style={{
-            width: '20px',
-            height: '20px',
-            color: 'red',
-            backgroundColor: 'red',
-            borderRadius: '50%',
-          }}
+          className={styles.destinationPin}
         />
       ))}
 
