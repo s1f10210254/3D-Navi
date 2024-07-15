@@ -1,0 +1,28 @@
+.destinationPin {
+  position: absolute;
+  top: -30px;
+  width: 30px;
+  height: 30px;
+  background: #e95464;
+  border-radius: 30px;
+}
+
+.destinationPin::before {
+  position: absolute;
+  bottom: -10px;
+  content: ' ';
+  border: solid transparent;
+  border-width: 22px 15px 0;
+  border-top-color: #e95464;
+}
+
+.destinationPin::after {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 10px;
+  height: 10px;
+  content: ' ';
+  background: #fff;
+  border-radius: 50%;
+}
