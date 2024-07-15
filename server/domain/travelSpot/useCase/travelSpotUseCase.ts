@@ -1,39 +1,61 @@
 import axios from 'axios';
 import type { CheerioAPI } from 'cheerio';
 import cheerio from 'cheerio';
+import type { TravelSpot } from 'common/types/travelSpots';
 export const travelSpotUseCase = {
   test: (travelStartingSpot: string): string => {
     console.log('travelStartingSpot', travelStartingSpot);
     return `行き先地: ${travelStartingSpot}`;
   },
 
-  fetchTravelSpots: async (query: string): Promise<string[]> => {
+  fetchTravelSpots: async (query: string): Promise<TravelSpot[]> => {
     try {
       const encodedQuery = encodeURIComponent(query);
-      const url = `https://www.japan47go.travel/ja/search/result?keyword=${encodedQuery}`;
+      const url = `https://4travel.jp/search/shisetsu/dm?sa=${encodedQuery}`;
 
-      const { data } = await axios.get(url, {
-        headers: {
-          'User-Agent':
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-          'Accept-Language': 'ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7',
-          'Accept-Encoding': 'gzip, deflate, br',
-          Connection: 'keep-alive',
-        },
-      });
+      const { data } = await axios.get(url);
 
       const $: CheerioAPI = cheerio.load(data);
 
-      const travelSpots: string[] = [];
-      $(
-        '#__next > div > div > main > section:nth-child(3) > ul > li > a > div.flex.flex-col.overflow-hidden.gap-10.pt-15 > p.font-serif.font-medium.tracking-60.-my-4.text-16.leading-\\[24px\\].md\\:-my-5.md\\:text-18.md\\:leading-\\[28px\\]',
-      ).each((index, element) => {
-        if (index < 10) {
-          // 10個までの結果を取得
-          const spot = $(element).text().trim();
-          travelSpots.push(spot);
-        }
-      });
+      const travelNames: string[] = [];
+      const travelURLs: string[] = [];
+      $('#main > div.search_result > div.item.spot_list > ul > li > p > a ').each(
+        (index, element) => {
+          if (index < 3) {
+            const spotName = $(element).text().trim();
+            travelNames.push(spotName);
+            const href = $(element).attr('href');
+            if (href) {
+              travelURLs.push(href);
+            }
+          }
+        },
+      );
+
+      const travelSpots: TravelSpot[] = [];
+
+      for (let i = 0; i < travelURLs.length; i++) {
+        const { data } = await axios.get(travelURLs[i]);
+        const $: CheerioAPI = cheerio.load(data);
+
+        const name = $(
+          '#main_container > main > div.shisetsu_contentBody > div > section > div > div > dl:nth-child(1) > dd',
+        )
+          .text()
+          .trim();
+        const description = $(
+          '#main_container > main > div.shisetsu_contentBody > div > section > div > div.shisetsu_lede > p',
+        )
+          .text()
+          .trim();
+        const address = $(
+          '#main_container > main > div.shisetsu_contentBody > div > section > div > div.shisetsu_informationList > dl:nth-child(2) > dd > ul > li:nth-child(1)',
+        )
+          .text()
+          .trim();
+
+        travelSpots.push({ name, description, address });
+      }
 
       return travelSpots;
     } catch (error) {
