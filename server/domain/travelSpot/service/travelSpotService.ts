@@ -1,9 +1,9 @@
 import axios from 'axios';
 import type { CheerioAPI } from 'cheerio';
 import cheerio from 'cheerio';
-import type { TravelSpot } from 'common/types/travelSpots';
+import type { LatAndLng, TravelSpot } from 'common/types/travelSpots';
 
-const fetchCoordinates = async (address: string): Promise<{ lat: number; lng: number } | null> => {
+const fetchCoordinates = async (address: string): Promise<LatAndLng | null> => {
   try {
     const encodedAddress = encodeURIComponent(address);
     const url = `https://msearch.gsi.go.jp/address-search/AddressSearch?q=${encodedAddress}`;
@@ -14,7 +14,7 @@ const fetchCoordinates = async (address: string): Promise<{ lat: number; lng: nu
       const { geometry } = data[0];
       const { coordinates } = geometry;
       const [lng, lat] = coordinates;
-      return { lat, lng };
+      return { latitude: lat, longitude: lng };
     } else {
       console.error('No coordinates found for address:', address);
       return null;
@@ -53,16 +53,20 @@ export const fetchTravelSpotDetails = async (url: string): Promise<TravelSpot | 
     if (coordinates) {
       return {
         name,
+        location: {
+          latitude: coordinates.latitude,
+          longitude: coordinates.longitude,
+        },
         description,
-        latitude: coordinates.lat,
-        longitude: coordinates.lng,
       };
     } else {
       return {
         name,
+        location: {
+          latitude: 0,
+          longitude: 0,
+        },
         description,
-        latitude: 0,
-        longitude: 0,
       };
     }
   } catch (error) {
