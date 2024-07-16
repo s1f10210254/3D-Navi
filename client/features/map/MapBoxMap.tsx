@@ -171,7 +171,9 @@ const MapBoxMap = ({ allDestinationSpots, currentLocation }: MapBoxMapProps) => 
           }}
           onClick={() => onMarkerClick(index)}
           className={styles.destinationPin}
-        />
+        >
+          <h3 className={styles.placeName}>{spot.name}</h3>
+        </div>
       ))}
 
       <div>
