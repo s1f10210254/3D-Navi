@@ -4,17 +4,7 @@ import { useState } from 'react';
 import { apiClient } from 'utils/apiClient';
 
 const TravelDestination = () => {
-  const [destination, setDestination] = useState<string>('');
-  const [response, setResponse] = useState<string>('');
   const imageUrl = '';
-  const serch = async () => {
-    console.log('destination', destination);
-    await apiClient.travelStartingSpot.post({ body: { destination } }).then((res) => {
-      console.log('res', res);
-      setResponse(res.body);
-    });
-  };
-
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [travelSpots, setTravelSpots] = useState<TravelSpot[]>([]);
 
@@ -24,6 +14,7 @@ const TravelDestination = () => {
       setTravelSpots(res);
     });
   };
+
   return (
     <div className={styles.container}>
       <h1 style={{ fontSize: '50px', textAlign: 'center', width: '600px', height: '200px' }}>
@@ -49,14 +40,14 @@ const TravelDestination = () => {
       <div className={styles.box}>
         <div className={styles.subject}>観光地</div>
         <input
-          value={destination}
-          onChange={(e) => setDestination(e.target.value)}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           className={styles.inp}
           placeholder="例:京都"
         />
       </div>
       <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
-      <button onClick={serch} className={styles.serch}>
+      <button onClick={fetchTravelSpots} className={styles.serch}>
         検索
       </button>
       <ul>
@@ -71,7 +62,6 @@ const TravelDestination = () => {
           </li>
         ))}
       </ul>
-      <p>{response}</p>
     </div>
   );
 };
