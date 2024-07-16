@@ -1,10 +1,10 @@
+import type { LatAndLng, TravelSpot } from 'common/types/travelSpots';
 import { useRef } from 'react';
 import styles from './MapBoxMap.module.css';
-import type { LatAndLng, TouristSpot } from './types';
 import useMap from './useMap';
 
 type MapBoxMapProps = {
-  allDestinationSpots: TouristSpot[];
+  allDestinationSpots: TravelSpot[];
   currentLocation: LatAndLng;
 };
 

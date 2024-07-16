@@ -57,7 +57,7 @@ const TravelDestination = () => {
             <p style={{ margin: '5px 0', color: '#555' }}>概要：{spot.description}</p>
             <br />
             <p style={{ margin: '5px 0', color: '#555' }}>
-              緯度:{spot.latitude}、経度:{spot.longitude}
+              緯度:{spot.location.latitude}、経度:{spot.location.longitude}
             </p>
           </li>
         ))}

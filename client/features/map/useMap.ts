@@ -1,7 +1,7 @@
 import MapboxLanguage from '@mapbox/mapbox-gl-language';
+import type { LatAndLng, TravelSpot } from 'common/types/travelSpots';
 import mapboxgl from 'mapbox-gl';
 import { useEffect, useRef, useState } from 'react';
-import type { LatAndLng, TouristSpot } from './types';
 
 const MAPBOX_BASE_URL = 'https://api.mapbox.com';
 
@@ -73,13 +73,13 @@ const displayRoute = async (map: mapboxgl.Map, waypoints: [number, number][]) =>
 };
 
 const useMap = (
-  allDestinationSpots: TouristSpot[],
+  allDestinationSpots: TravelSpot[],
   currentLocation: LatAndLng,
   mapContainer: React.RefObject<HTMLDivElement>,
   markerRef: React.MutableRefObject<HTMLDivElement[]>,
 ) => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
-  const [selectedSpots, setSelectedSpots] = useState<TouristSpot[]>([]);
+  const [selectedSpots, setSelectedSpots] = useState<TravelSpot[]>([]);
 
   useEffect(() => {
     const MAPBOX_API_KEY = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
