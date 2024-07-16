@@ -1,4 +1,5 @@
 import type { DefineMethods } from 'aspida';
+import type { TravelSpot } from 'common/types/travelSpots';
 
 export type Methods = DefineMethods<{
   get: {
@@ -6,6 +7,6 @@ export type Methods = DefineMethods<{
   };
   post: {
     reqBody: { destination: string };
-    resBody: string;
+    resBody: TravelSpot[];
   };
 }>;

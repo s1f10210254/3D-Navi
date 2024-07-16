@@ -1,56 +1,62 @@
-import { useState } from 'react';
-import styles from './index.module.css';
+import { Loading } from 'components/loading/Loading';
+import MapBoxMap from 'features/map/MapBoxMap';
+import type { LatAndLng, TouristSpot } from 'features/map/types';
+import { useEffect, useState } from 'react';
+
+// デモデータ
+const destinationSpots: TouristSpot[] = [
+  {
+    name: '東京ディズニーランド',
+    location: {
+      latitude: 35.6329,
+      longitude: 139.8804,
+    },
+    description: '日本で一番楽しい場所',
+  },
+  {
+    name: '東京スカイツリー',
+    location: {
+      latitude: 35.71,
+      longitude: 139.810833,
+    },
+    description: '日本で一番高い建物',
+  },
+  {
+    name: '東京タワー',
+    location: {
+      latitude: 35.658611,
+      longitude: 139.745556,
+    },
+    description: '日本で一番有名な観光地',
+  },
+  {
+    name: '赤羽',
+    location: {
+      latitude: 35.775,
+      longitude: 139.720556,
+    },
+    description: '日本で一番美味しいラーメン',
+  },
+];
 
 const SightseeingMap = () => {
-  const [selectedPlace, setSelectedPlace] = useState<string[]>([]);
+  const [currentLocation, setCurrentLocation] = useState<LatAndLng | null>(null);
 
-  const handleSelectPlace = (place: string) => {
-    if (selectedPlace.includes(place)) {
-      setSelectedPlace(selectedPlace.filter((p) => p !== place));
-      return;
-    }
-    setSelectedPlace([...selectedPlace, place]);
-  };
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      setCurrentLocation({ latitude, longitude });
+    });
+  }, []);
 
-  const onClickDecide = () => {
-    if (selectedPlace.length === 0) {
-      alert('行き先を選択してください');
-      return;
-    }
-    //ここにpost処理を書く
-    alert(`行き先は${selectedPlace.join('、')}です`);
-  };
+  if (!currentLocation) {
+    return <Loading visible />;
+  }
 
   return (
     <div>
       <h1>観光地マップ</h1>
-      <div className={styles.buttonWrapper}>
-        <button
-          onClick={() => handleSelectPlace('金閣寺')}
-          style={{
-            backgroundColor: selectedPlace.includes('金閣寺') ? 'red' : 'white',
-          }}
-        >
-          金閣寺
-        </button>
-        <button
-          onClick={() => handleSelectPlace('清水寺')}
-          style={{
-            backgroundColor: selectedPlace.includes('清水寺') ? 'red' : 'white',
-          }}
-        >
-          清水寺
-        </button>
-        <button
-          onClick={() => handleSelectPlace('伏見稲荷大社')}
-          style={{
-            backgroundColor: selectedPlace.includes('伏見稲荷大社') ? 'red' : 'white',
-          }}
-        >
-          伏見稲荷大社
-        </button>
-      </div>
-      <button onClick={onClickDecide}>行き先決定</button>
+      <MapBoxMap allDestinationSpots={destinationSpots} currentLocation={currentLocation} />
     </div>
   );
 };
