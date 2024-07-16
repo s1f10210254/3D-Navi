@@ -12,6 +12,9 @@ const destinationSpots: TravelSpot[] = [
       longitude: 139.8804,
     },
     description: '日本で一番楽しい場所',
+    categories: {
+      '観光・遊ぶ': ['テーマパーク'],
+    },
   },
   {
     name: '東京スカイツリー',
@@ -20,6 +23,9 @@ const destinationSpots: TravelSpot[] = [
       longitude: 139.810833,
     },
     description: '日本で一番高い建物',
+    categories: {
+      '観光・遊ぶ': ['名所・史跡'],
+    },
   },
   {
     name: '東京タワー',
@@ -28,6 +34,9 @@ const destinationSpots: TravelSpot[] = [
       longitude: 139.745556,
     },
     description: '日本で一番有名な観光地',
+    categories: {
+      '観光・遊ぶ': ['名所・史跡'],
+    },
   },
   {
     name: '赤羽',
@@ -36,6 +45,9 @@ const destinationSpots: TravelSpot[] = [
       longitude: 139.720556,
     },
     description: '日本で一番美味しいラーメン',
+    categories: {
+      'グルメ・レストラン': [],
+    },
   },
 ];
 
