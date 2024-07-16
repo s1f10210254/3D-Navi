@@ -13,7 +13,6 @@ const TravelDestination = () => {
       body: { destination: userDestination },
     });
     setTravelSpots(res);
-    console.log(travelSpots.map((spot) => spot.categories));
   };
 
   return (
