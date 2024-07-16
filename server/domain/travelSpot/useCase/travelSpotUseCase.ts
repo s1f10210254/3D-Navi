@@ -13,13 +13,21 @@ export const travelSpotUseCase = {
   fetchTravelSpots: async (query: string): Promise<TravelSpot[]> => {
     try {
       const encodedQuery = encodeURIComponent(query);
-      const url = `https://4travel.jp/search/shisetsu/dm?sa=${encodedQuery}`;
+      let url = `https://4travel.jp/search/shisetsu/dm?sa=${encodedQuery}`;
 
       const { data } = await axios.get(url);
 
-      const $: CheerioAPI = cheerio.load(data);
+      let $: CheerioAPI = cheerio.load(data);
 
-      const travelURLs = extractTravelSpotLinks($);
+      let travelURLs = extractTravelSpotLinks($);
+
+      if (travelURLs.length === 0) {
+        // エリア検索で結果がなかった場合、キーワード検索を実行
+        url = `https://4travel.jp/search/shisetsu/dm?sa=&sk=${encodedQuery}`;
+        const keywordSearchData = await axios.get(url);
+        $ = cheerio.load(keywordSearchData.data);
+        travelURLs = extractTravelSpotLinks($);
+      }
 
       const travelSpotPromises = travelURLs.map((url) => fetchTravelSpotDetails(url));
       const travelSpots = await Promise.all(travelSpotPromises);

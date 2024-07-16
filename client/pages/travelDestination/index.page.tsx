@@ -46,7 +46,6 @@ const TravelDestination = () => {
           placeholder="例:京都"
         />
       </div>
-      <input value={userDestination} onChange={(e) => setUserDestination(e.target.value)} />
       <button onClick={fetchTravelSpots} className={styles.search}>
         検索
       </button>
