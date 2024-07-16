@@ -23,7 +23,9 @@ const TravelDestination = () => {
             <h2 style={{ margin: '0', fontSize: '1.5em' }}>名前：{spot.name}</h2>
             <p style={{ margin: '5px 0', color: '#555' }}>概要：{spot.description}</p>
             <br />
-            <p style={{ margin: '5px 0', color: '#555' }}>住所:{spot.address}</p>
+            <p style={{ margin: '5px 0', color: '#555' }}>
+              緯度:{spot.latitude}、経度:{spot.longitude}
+            </p>
           </li>
         ))}
       </ul>

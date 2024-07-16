@@ -2,6 +2,8 @@ import axios from 'axios';
 import type { CheerioAPI } from 'cheerio';
 import cheerio from 'cheerio';
 import type { TravelSpot } from 'common/types/travelSpots';
+import { extractTravelSpotLinks, fetchTravelSpotDetails } from '../service/travelSpotService';
+
 export const travelSpotUseCase = {
   test: (travelStartingSpot: string): string => {
     console.log('travelStartingSpot', travelStartingSpot);
@@ -17,47 +19,12 @@ export const travelSpotUseCase = {
 
       const $: CheerioAPI = cheerio.load(data);
 
-      const travelNames: string[] = [];
-      const travelURLs: string[] = [];
-      $('#main > div.search_result > div.item.spot_list > ul > li > p > a ').each(
-        (index, element) => {
-          if (index < 3) {
-            const spotName = $(element).text().trim();
-            travelNames.push(spotName);
-            const href = $(element).attr('href');
-            if (href) {
-              travelURLs.push(href);
-            }
-          }
-        },
-      );
+      const travelURLs = extractTravelSpotLinks($);
 
-      const travelSpots: TravelSpot[] = [];
+      const travelSpotPromises = travelURLs.map((url) => fetchTravelSpotDetails(url));
+      const travelSpots = await Promise.all(travelSpotPromises);
 
-      for (let i = 0; i < travelURLs.length; i++) {
-        const { data } = await axios.get(travelURLs[i]);
-        const $: CheerioAPI = cheerio.load(data);
-
-        const name = $(
-          '#main_container > main > div.shisetsu_contentBody > div > section > div > div > dl:nth-child(1) > dd',
-        )
-          .text()
-          .trim();
-        const description = $(
-          '#main_container > main > div.shisetsu_contentBody > div > section > div > div.shisetsu_lede > p',
-        )
-          .text()
-          .trim();
-        const address = $(
-          '#main_container > main > div.shisetsu_contentBody > div > section > div > div.shisetsu_informationList > dl:nth-child(2) > dd > ul > li:nth-child(1)',
-        )
-          .text()
-          .trim();
-
-        travelSpots.push({ name, description, address });
-      }
-
-      return travelSpots;
+      return travelSpots.filter((spot) => spot !== null) as TravelSpot[];
     } catch (error) {
       console.error('Error fetching travel spots:', error);
       if (axios.isAxiosError(error)) {
