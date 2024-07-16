@@ -6,8 +6,7 @@ import { apiClient } from 'utils/apiClient';
 const TravelDestination = () => {
   const [destination, setDestination] = useState<string>('');
   const [response, setResponse] = useState<string>('');
-  const imageUrl =
-    'https://p.potaufeu.asahi.com/fc1b-p/picture/28293924/fd25573b6b20e3c27ec3ce123f3a2a5e_640px.jpg';
+  const imageUrl = '';
   const serch = async () => {
     console.log('destination', destination);
     await apiClient.travelStartingSpot.post({ body: { destination } }).then((res) => {
@@ -34,7 +33,7 @@ const TravelDestination = () => {
       {/* ここになにかしらのアイコン画像を入れいる */}
       <img src={imageUrl} alt="Google Image" style={{ width: '300px', height: 'auto' }} />
       <p>行きたい場所を入力してください</p>
-      {/* <div className={styles.box}>
+      <div className={styles.box}>
         <div className={styles.subject}>移動手段</div>
         <select className={styles.sel}>
           <option>電車</option>
@@ -46,7 +45,7 @@ const TravelDestination = () => {
       <div className={styles.box}>
         <div className={styles.subject}>出発地</div>
         <input className={styles.inp} />
-      </div> */}
+      </div>
       <div className={styles.box}>
         <div className={styles.subject}>観光地</div>
         <input
