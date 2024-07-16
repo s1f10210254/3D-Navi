@@ -1,5 +1,55 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* justify-content: center; */
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
   min-height: 100vh;
-  padding: 40px 16px;
-  background: #f8f8f8;
+  padding: 0 0.5rem;
+  overflow: auto;
+}
+
+.sel {
+  width: 184px;
+
+  /* padding: 10px; */
+  color: #757373;
+  border: 1px solid #b6b5b5;
+}
+
+.inp {
+  padding-left: 3%;
+  border: 1px solid #b6b5b5;
+}
+
+.inp[type='text']::placeholder {
+  color: #999; /* プレースホルダーの色を薄いグレーに設定 */
+}
+
+.subject {
+  width: 100px;
+  height: 30px;
+  color: white;
+  text-align: center;
+  background-color: #46a667;
+  border-radius: 5%;
+}
+
+.box {
+  display: flex;
+  margin: 15px;
+}
+
+.serch {
+  width: 100px;
+  height: 30px;
+  color: white;
+  background-color: #f38511;
+  border: 0;
+}
+
+.serch:hover {
+  background-color: #ff5700;
 }
