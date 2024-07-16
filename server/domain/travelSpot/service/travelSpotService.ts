@@ -50,6 +50,31 @@ export const fetchTravelSpotDetails = async (url: string): Promise<TravelSpot | 
 
     const coordinates = await fetchCoordinates(address);
 
+    // カテゴリ情報をオブジェクトとして格納
+    const categories: Record<string, string[]> = {};
+
+    $(
+      '#main_container > main > div.shisetsu_contentBody > div > section > div > div.shisetsu_informationList > dl',
+    ).each((index, element) => {
+      const dtText = $(element).find('dt').text().trim();
+      if (dtText.includes('カテゴリ')) {
+        $(element)
+          .find('dd > ol')
+          .each((_, olElement) => {
+            const mainCategory = $(olElement).find('li:nth-child(1) > a').text().trim();
+            const subCategory = $(olElement).find('li:nth-child(2) > a').text().trim();
+            if (mainCategory) {
+              if (!categories[mainCategory]) {
+                categories[mainCategory] = [];
+              }
+              if (subCategory && !categories[mainCategory].includes(subCategory)) {
+                categories[mainCategory].push(subCategory);
+              }
+            }
+          });
+      }
+    });
+
     if (coordinates) {
       return {
         name,
@@ -58,6 +83,7 @@ export const fetchTravelSpotDetails = async (url: string): Promise<TravelSpot | 
           longitude: coordinates.longitude,
         },
         description,
+        categories,
       };
     } else {
       return {
@@ -67,6 +93,7 @@ export const fetchTravelSpotDetails = async (url: string): Promise<TravelSpot | 
           longitude: 0,
         },
         description,
+        categories,
       };
     }
   } catch (error) {
