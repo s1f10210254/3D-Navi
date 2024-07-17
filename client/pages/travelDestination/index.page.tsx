@@ -56,16 +56,7 @@ const TravelDestination = () => {
             <h2 className={styles.listTitle}>名前：{spot.name}</h2>
             <p className={styles.listDescription}>概要：{spot.description}</p>
             <br />
-            {Object.entries(spot.categories).map(([mainCategory, subCategories]) => (
-              <div key={mainCategory}>
-                <h4>{mainCategory}</h4>
-                <ul>
-                  {subCategories.map((subCategory) => (
-                    <li key={subCategory}>{subCategory}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            <p className={styles.listDescription}>カテゴリ：{spot.categories}</p>
             <p className={styles.listDescription}>
               緯度:{spot.location.latitude}、経度:{spot.location.longitude}
             </p>

@@ -2,7 +2,8 @@ import axios from 'axios';
 import type { CheerioAPI } from 'cheerio';
 import cheerio from 'cheerio';
 import type { TravelSpot } from 'common/types/travelSpots';
-import { extractTravelSpotLinks, fetchTravelSpotDetails } from '../service/travelSpotService';
+import { extractTravelSpotData } from '../service/travelSpotDataExtractor';
+import { getTravelSpotDetails } from '../service/travelSpotService';
 
 export const travelSpotUseCase = {
   test: (travelStartingSpot: string): string => {
@@ -19,17 +20,19 @@ export const travelSpotUseCase = {
 
       let $: CheerioAPI = cheerio.load(data);
 
-      let travelURLs = extractTravelSpotLinks($);
+      let travelURLData = extractTravelSpotData($);
 
-      if (travelURLs.length === 0) {
+      if (travelURLData.length === 0) {
         // エリア検索で結果がなかった場合、キーワード検索を実行
         url = `https://4travel.jp/search/shisetsu/dm?sa=&sk=${encodedQuery}`;
         const keywordSearchData = await axios.get(url);
         $ = cheerio.load(keywordSearchData.data);
-        travelURLs = extractTravelSpotLinks($);
+        travelURLData = extractTravelSpotData($);
       }
 
-      const travelSpotPromises = travelURLs.map((url) => fetchTravelSpotDetails(url));
+      const travelSpotPromises = travelURLData.map((data) =>
+        getTravelSpotDetails(data.url, data.category),
+      );
       const travelSpots = await Promise.all(travelSpotPromises);
 
       return travelSpots.filter((spot) => spot !== null);
