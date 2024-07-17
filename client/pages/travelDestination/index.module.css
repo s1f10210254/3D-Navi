@@ -33,7 +33,8 @@
 
 .inp {
   padding-left: 3%;
-  border: 1px solid #b6b5b5;
+  border: none;
+  border-left: 1px solid #b6b5b5;
 }
 
 .inp[type='text']::placeholder {
@@ -43,27 +44,38 @@
 .subject {
   width: 100px;
   height: 30px;
-  color: white;
   text-align: center;
-  background-color: #46a667;
   border-radius: 5%;
 }
 
-.box {
+.searchBox {
   display: flex;
-  margin: 15px;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  height: 300px;
+  border: 1px solid #e95464;
+  border-radius: 10%;
 }
 
-.serch {
+.box {
+  position: relative;
+  display: flex;
+  margin-top: 100px;
+  margin-bottom: 20px;
+  border: 2px solid #e95464;
+}
+
+.search {
   width: 100px;
   height: 30px;
   color: white;
-  background-color: #f38511;
+  background-color: #e95464;
   border: 0;
 }
 
-.serch:hover {
-  background-color: #ff5700;
+.search:hover {
+  background-color: #e84656;
 }
 
 .listItem {

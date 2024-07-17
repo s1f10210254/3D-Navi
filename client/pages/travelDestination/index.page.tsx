@@ -34,10 +34,23 @@ const TravelDestination = () => {
         '紅葉',
         '花見',
         'イルミネーション',
-        'フルーツ狩り',
+        'フルーツ狩り・農業体験',
+        '祭り・イベント',
+        '世界遺産',
+        '花火',
       ],
+      shopping: [
+        '専門店',
+        '百貨店・デパート',
+        'スーパー・コンビニ・量販店',
+        'ショッピングモール',
+        'アウトレット',
+        '市場・商店街',
+        'お土産屋・直売所・特産品',
+      ],
+      gourmet: ['グルメ・レストラン'],
     };
-    if (category === '') {
+    if (category === '観光・遊ぶ') {
     }
   };
   return (
@@ -49,42 +62,21 @@ const TravelDestination = () => {
       {/* ここになにかしらのアイコン画像を入れいる */}
       <img src={imageUrl} alt="Google Image" className={styles.image} />
       <p>行きたい場所を入力してください</p>
-      <div className={styles.box}>
-        <div className={styles.subject}>移動手段</div>
-        <select className={styles.sel}>
-          <option>電車</option>
-          <option>自動車</option>
-          <option>徒歩</option>
-        </select>
-      </div>
+      <div className={styles.searchBox}>
+        <div className={styles.box}>
+          <div className={styles.subject}>観光地</div>
+          <input
+            value={userDestination}
+            onChange={(e) => setUserDestination(e.target.value)}
+            className={styles.inp}
+            placeholder="例:京都"
+          />
+        </div>
 
-      <div className={styles.box}>
-        <div className={styles.subject}>出発地</div>
-        <input className={styles.inp} />
+        <button onClick={fetchTravelSpots} className={styles.search}>
+          検索
+        </button>
       </div>
-      <div className={styles.box}>
-        <div className={styles.subject}>観光地</div>
-        <input
-          value={userDestination}
-          onChange={(e) => setUserDestination(e.target.value)}
-          className={styles.inp}
-          placeholder="例:京都"
-        />
-      </div>
-      <div className={styles.box}>
-        <div className={styles.subject}>カテゴリ</div>
-        <select className={styles.sel} onChange={(e) => selectCategory(e.target.value)}>
-          <option>すべて</option>
-          <option>観光・遊ぶ</option>
-          <option>ショッピング</option>
-          <option>グルメ・レストラン</option>
-        </select>
-      </div>
-
-      <input value={userDestination} onChange={(e) => setUserDestination(e.target.value)} />
-      <button onClick={fetchTravelSpots} className={styles.serch}>
-        検索
-      </button>
       <ul>
         {travelSpots.map((spot, index) => (
           <li key={index} className={styles.listItem}>
