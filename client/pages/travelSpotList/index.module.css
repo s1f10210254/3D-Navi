@@ -1,0 +1,14 @@
+.listItem {
+  padding: 20px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.listTitle {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.listDescription {
+  margin: 5px 0;
+  color: #555;
+}

@@ -1,4 +1,5 @@
 import { useAtom } from 'jotai';
+import { useRouter } from 'next/router';
 import styles from 'pages/travelDestination/index.module.css';
 import { useState } from 'react';
 import { apiClient } from 'utils/apiClient';
@@ -8,13 +9,14 @@ const TravelDestination = () => {
   const imageUrl = '';
   const [userDestination, setUserDestination] = useState<string>('');
   const [travelSpots, setTravelSpots] = useAtom(travelSpotsAtom);
+  const router = useRouter();
 
   const fetchTravelSpots = async () => {
     const res = await apiClient.travelStartingSpot.$post({
       body: { destination: userDestination },
     });
     setTravelSpots(res);
-    console.log(travelSpots.map((spot) => spot.categories));
+    router.push('/travelSpotList');
   };
 
   return (
