@@ -15,6 +15,31 @@ const TravelDestination = () => {
     });
   };
 
+  //カテゴリー選択
+  const selectCategory = (category: string) => {
+    const allCategories = {
+      sighttseeng: [
+        '温泉',
+        'テーマパーク',
+        '動物園・水族館',
+        'キャンプ場',
+        'ゴルフ場',
+        'ビーチ',
+        '美術館・博物館',
+        '公園・植物園',
+        '名所・史跡',
+        '寺・神社・協会',
+        '自然・景勝地',
+        'スキー場',
+        '紅葉',
+        '花見',
+        'イルミネーション',
+        'フルーツ狩り',
+      ],
+    };
+    if (category === '') {
+    }
+  };
   return (
     <div className={styles.container}>
       <h1 style={{ fontSize: '50px', textAlign: 'center', width: '600px', height: '200px' }}>
@@ -46,7 +71,16 @@ const TravelDestination = () => {
           placeholder="例:京都"
         />
       </div>
-      <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+      <div className={styles.box}>
+        <div className={styles.subject}>カテゴリ</div>
+        <select className={styles.sel} onChange={(e) => selectCategory(e.target.value)}>
+          <option>すべて</option>
+          <option>観光・遊ぶ</option>
+          <option>ショッピング</option>
+          <option>グルメ・レストラン</option>
+        </select>
+      </div>
+
       <button onClick={fetchTravelSpots} className={styles.serch}>
         検索
       </button>
