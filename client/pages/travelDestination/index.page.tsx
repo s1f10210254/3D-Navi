@@ -1,12 +1,13 @@
-import type { TravelSpot } from 'common/types/travelSpots';
+import { useAtom } from 'jotai';
 import styles from 'pages/travelDestination/index.module.css';
 import { useState } from 'react';
 import { apiClient } from 'utils/apiClient';
+import { travelSpotsAtom } from 'utils/travelSpotsAtom';
 
 const TravelDestination = () => {
   const imageUrl = '';
   const [userDestination, setUserDestination] = useState<string>('');
-  const [travelSpots, setTravelSpots] = useState<TravelSpot[]>([]);
+  const [travelSpots, setTravelSpots] = useAtom(travelSpotsAtom);
 
   const fetchTravelSpots = async () => {
     const res = await apiClient.travelStartingSpot.$post({
