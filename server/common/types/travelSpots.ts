@@ -3,8 +3,8 @@ export type LatAndLng = {
   longitude: number;
 };
 
-export type TouristSpot = {
+export type TravelSpot = {
   name: string;
   location: LatAndLng;
-  description?: string;
+  description: string;
 };
