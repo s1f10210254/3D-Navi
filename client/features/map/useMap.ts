@@ -77,6 +77,7 @@ const useMap = (
   currentLocation: LatAndLng,
   mapContainer: React.RefObject<HTMLDivElement>,
   markerRef: React.MutableRefObject<HTMLDivElement[]>,
+  currentLocationElement: React.RefObject<HTMLDivElement>,
 ) => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const [selectedSpots, setSelectedSpots] = useState<TravelSpot[]>([]);
@@ -102,12 +103,12 @@ const useMap = (
     mapRef.current.addControl(language);
     mapRef.current.addControl(new mapboxgl.NavigationControl());
 
-    const currentLocationMarker = new mapboxgl.Marker({ color: 'green' })
-      .setLngLat([currentLocation.longitude, currentLocation.latitude])
-      .setPopup(new mapboxgl.Popup().setHTML('現在地'))
-      .addTo(mapRef.current);
+    if (currentLocationElement.current) {
+      new mapboxgl.Marker(currentLocationElement.current)
+        .setLngLat([currentLocation.longitude, currentLocation.latitude])
+        .addTo(mapRef.current);
+    }
 
-    currentLocationMarker.togglePopup();
     mapRef.current.setCenter([currentLocation.longitude, currentLocation.latitude]);
 
     allDestinationSpots.forEach((spot, index) => {
@@ -116,14 +117,13 @@ const useMap = (
 
       new mapboxgl.Marker(markerElement)
         .setLngLat([spot.location.longitude, spot.location.latitude])
-        .setPopup(new mapboxgl.Popup().setHTML(`<h3>${spot.name}</h3><p>${spot.description}</p>`))
         .addTo(mapRef.current);
     });
 
     return () => {
       if (mapRef.current) mapRef.current.remove();
     };
-  }, [allDestinationSpots, currentLocation, mapContainer, mapRef, markerRef]);
+  }, [allDestinationSpots, currentLocation, mapContainer, mapRef, markerRef, currentLocationElement]);
 
   const onDestinationMarkerClick = (index: number) => {
     if (selectedSpots.includes(allDestinationSpots[index])) {
