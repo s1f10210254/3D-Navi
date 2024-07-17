@@ -1,10 +1,10 @@
+import type { LatAndLng, TravelSpot } from 'common/types/travelSpots';
 import { Loading } from 'components/loading/Loading';
 import MapBoxMap from 'features/map/MapBoxMap';
-import type { LatAndLng, TouristSpot } from 'features/map/types';
 import { useEffect, useState } from 'react';
 
 // デモデータ
-const destinationSpots: TouristSpot[] = [
+const destinationSpots: TravelSpot[] = [
   {
     name: '東京ディズニーランド',
     location: {

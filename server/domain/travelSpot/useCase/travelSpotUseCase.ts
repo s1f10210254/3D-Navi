@@ -24,7 +24,7 @@ export const travelSpotUseCase = {
       const travelSpotPromises = travelURLs.map((url) => fetchTravelSpotDetails(url));
       const travelSpots = await Promise.all(travelSpotPromises);
 
-      return travelSpots.filter((spot) => spot !== null) as TravelSpot[];
+      return travelSpots.filter((spot) => spot !== null);
     } catch (error) {
       console.error('Error fetching travel spots:', error);
       if (axios.isAxiosError(error)) {
