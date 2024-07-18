@@ -59,7 +59,6 @@ const SightseeingMap = () => {
 
   return (
     <div>
-      <h1>観光地マップ</h1>
       <MapBoxMap allDestinationSpots={destinationSpots} currentLocation={currentLocation} />
     </div>
   );

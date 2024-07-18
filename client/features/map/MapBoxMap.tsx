@@ -21,8 +21,17 @@ const MapBoxMap = ({ allDestinationSpots, currentLocation }: MapBoxMapProps) => 
   );
 
   return (
-    <div>
-      <div ref={mapContainer} style={{ height: '100vh' }} />
+    <div className={styles.container}>
+      <div>
+        {selectedSpots.map((spot, index) => (
+          <div key={index}>
+            <h3>{spot.name}</h3>
+          </div>
+        ))}
+      </div>
+
+      <button onClick={onDecide}>行き先決定</button>
+      <div ref={mapContainer} className={styles.map} />
 
       {allDestinationSpots.map((spot, index) => (
         <div
@@ -41,16 +50,6 @@ const MapBoxMap = ({ allDestinationSpots, currentLocation }: MapBoxMapProps) => 
       <div ref={currentLocationElement} className={styles.currentLocationPin}>
         <h3 className={styles.currentName}>現在地</h3>
       </div>
-
-      <div>
-        {selectedSpots.map((spot, index) => (
-          <div key={index}>
-            <h3>{spot.name}</h3>
-          </div>
-        ))}
-      </div>
-
-      <button onClick={onDecide}>行き先決定</button>
     </div>
   );
 };

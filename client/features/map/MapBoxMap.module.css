@@ -1,3 +1,15 @@
+.container {
+  display: flex;
+  justify-content: end;
+  height: auto;
+}
+
+.map {
+  display: flex;
+  width: 125vh;
+  height: 94vh;
+}
+
 .destinationPin {
   position: absolute;
   top: -30px;
