@@ -1,6 +1,4 @@
-import iconLogo from 'client/public/images/github-logo_icon-icons.webp';
 import styles from './header.module.css';
-
 export const Header = () => {
   return (
     <div className={styles.header}>
@@ -11,7 +9,7 @@ export const Header = () => {
         rel="noopener noreferrer"
         className={styles.logo}
       >
-        <img src={iconLogo.src} className={styles.githubLogo} alt="logo" />
+        <img src="../images/github-logo_icon-icons.webp" className={styles.githubLogo} alt="logo" />
       </a>
     </div>
   );
