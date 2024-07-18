@@ -1,7 +1,9 @@
 import type { LatAndLng, TravelSpot } from 'common/types/travelSpots';
 import { Loading } from 'components/loading/Loading';
 import MapBoxMap from 'features/map/MapBoxMap';
+import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
+import { travelSpotsAtom } from 'utils/travelSpotsAtom';
 
 // デモデータ
 const destinationSpots: TravelSpot[] = [
@@ -13,6 +15,8 @@ const destinationSpots: TravelSpot[] = [
     },
     description: '日本で一番楽しい場所',
     categories: 'テーマパーク',
+    isSelected: true,
+    index: 0,
   },
   {
     name: '東京スカイツリー',
@@ -22,6 +26,8 @@ const destinationSpots: TravelSpot[] = [
     },
     description: '日本で一番高い建物',
     categories: '名所・史跡',
+    isSelected: true,
+    index: 1,
   },
   {
     name: '東京タワー',
@@ -31,6 +37,8 @@ const destinationSpots: TravelSpot[] = [
     },
     description: '日本で一番有名な観光地',
     categories: '名所・史跡',
+    isSelected: true,
+    index: 2,
   },
   {
     name: '赤羽',
@@ -40,11 +48,15 @@ const destinationSpots: TravelSpot[] = [
     },
     description: '日本で一番美味しいラーメン',
     categories: 'グルメ・レストラン',
+    isSelected: true,
+    index: 3,
   },
 ];
 
 const SightseeingMap = () => {
   const [currentLocation, setCurrentLocation] = useState<LatAndLng | null>(null);
+  const [travelSpots] = useAtom<TravelSpot[]>(travelSpotsAtom);
+  const selectedSpots = travelSpots.filter((spot) => spot.isSelected);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -59,7 +71,7 @@ const SightseeingMap = () => {
 
   return (
     <div>
-      <MapBoxMap allDestinationSpots={destinationSpots} currentLocation={currentLocation} />
+      <MapBoxMap allDestinationSpots={selectedSpots} currentLocation={currentLocation} />
     </div>
   );
 };

@@ -8,4 +8,6 @@ export type TravelSpot = {
   location: LatAndLng;
   description: string;
   categories: string;
+  isSelected: boolean;
+  index: number | null;
 };
