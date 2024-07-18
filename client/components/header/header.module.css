@@ -1,0 +1,32 @@
+.header {
+  position: sticky;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  background-color: white;
+
+  /* fixedで固定 */
+
+  /* background-color: black; */
+}
+
+.appTitle {
+  padding: 30px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  margin: 0 20px 0 auto;
+}
+
+.githubLogo {
+  width: 60px;
+  height: 60px;
+  margin: 0 20px 0 auto;
+}

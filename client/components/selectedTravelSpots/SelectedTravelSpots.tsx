@@ -1,4 +1,5 @@
 import type { TravelSpot } from 'common/types/travelSpots';
+import { useRouter } from 'next/router';
 import type React from 'react';
 import styles from './SelectedTravelSpots.module.css';
 
@@ -11,6 +12,8 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
   selectedSpots,
   setTravelSpots,
 }) => {
+  const router = useRouter();
+
   const moveUp = (index: number) => {
     if (index === 0) return;
     const newSelectedSpots = [...selectedSpots];
@@ -37,6 +40,10 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
         (spot) => newSelectedSpots.find((selectedSpot) => selectedSpot.name === spot.name) || spot,
       ),
     );
+  };
+
+  const handleDecide = () => {
+    router.push('/sightseeingMap');
   };
 
   const handleReset = () => {
@@ -68,6 +75,7 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
           ))}
       </ul>
       <button onClick={handleReset}>リセット</button>
+      <button onClick={handleDecide}>行き先決定</button>
     </div>
   );
 };
