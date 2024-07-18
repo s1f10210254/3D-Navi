@@ -18,3 +18,15 @@
   font-size: 30px;
   font-weight: bold;
 }
+
+.logo {
+  width: 60px;
+  height: 60px;
+  margin: 0 20px 0 auto;
+}
+
+.githubLogo {
+  width: 60px;
+  height: 60px;
+  margin: 0 20px 0 auto;
+}
