@@ -20,8 +20,6 @@ const TravelDestination = () => {
     router.push('/travelSpotList');
   };
 
-  //カテゴリー選択
-
   return (
     <div>
       <Header />
