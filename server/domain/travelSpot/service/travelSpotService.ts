@@ -41,6 +41,8 @@ export const getTravelSpotDetails = async (
         },
         description,
         categories: category,
+        isSelected: false,
+        index: null,
       };
     } else {
       return {
@@ -51,6 +53,8 @@ export const getTravelSpotDetails = async (
         },
         description,
         categories: category,
+        isSelected: false,
+        index: null,
       };
     }
   } catch (error) {
