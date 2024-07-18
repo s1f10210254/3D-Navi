@@ -13,6 +13,8 @@ const destinationSpots: TravelSpot[] = [
     },
     description: '日本で一番楽しい場所',
     categories: 'テーマパーク',
+    isSelected: true,
+    index: 0,
   },
   {
     name: '東京スカイツリー',
@@ -22,6 +24,8 @@ const destinationSpots: TravelSpot[] = [
     },
     description: '日本で一番高い建物',
     categories: '名所・史跡',
+    isSelected: true,
+    index: 1,
   },
   {
     name: '東京タワー',
@@ -31,6 +35,8 @@ const destinationSpots: TravelSpot[] = [
     },
     description: '日本で一番有名な観光地',
     categories: '名所・史跡',
+    isSelected: true,
+    index: 2,
   },
   {
     name: '赤羽',
@@ -40,6 +46,8 @@ const destinationSpots: TravelSpot[] = [
     },
     description: '日本で一番美味しいラーメン',
     categories: 'グルメ・レストラン',
+    isSelected: true,
+    index: 3,
   },
 ];
 
