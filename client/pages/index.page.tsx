@@ -6,7 +6,7 @@ import { apiClient } from 'utils/apiClient';
 import { travelSpotsAtom } from 'utils/travelSpotsAtom';
 import styles from './index.module.css';
 
-const Home = () => {
+const TravelDestination = () => {
   const imageUrl = '';
   const [userDestination, setUserDestination] = useState<string>('');
   const [travelSpots, setTravelSpots] = useAtom(travelSpotsAtom);
@@ -66,4 +66,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default TravelDestination;
