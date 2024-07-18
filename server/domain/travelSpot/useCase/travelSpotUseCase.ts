@@ -2,7 +2,8 @@ import axios from 'axios';
 import type { CheerioAPI } from 'cheerio';
 import cheerio from 'cheerio';
 import type { TravelSpot } from 'common/types/travelSpots';
-import { extractTravelSpotLinks, fetchTravelSpotDetails } from '../service/travelSpotService';
+import { extractTravelSpotData } from '../service/travelSpotDataExtractor';
+import { getTravelSpotDetails } from '../service/travelSpotService';
 
 export const travelSpotUseCase = {
   test: (travelStartingSpot: string): string => {
@@ -13,15 +14,25 @@ export const travelSpotUseCase = {
   fetchTravelSpots: async (query: string): Promise<TravelSpot[]> => {
     try {
       const encodedQuery = encodeURIComponent(query);
-      const url = `https://4travel.jp/search/shisetsu/dm?sa=${encodedQuery}`;
+      let url = `https://4travel.jp/search/shisetsu/dm?sa=${encodedQuery}`;
 
       const { data } = await axios.get(url);
 
-      const $: CheerioAPI = cheerio.load(data);
+      let $: CheerioAPI = cheerio.load(data);
 
-      const travelURLs = extractTravelSpotLinks($);
+      let travelURLData = extractTravelSpotData($);
 
-      const travelSpotPromises = travelURLs.map((url) => fetchTravelSpotDetails(url));
+      if (travelURLData.length === 0) {
+        // エリア検索で結果がなかった場合、キーワード検索を実行
+        url = `https://4travel.jp/search/shisetsu/dm?sa=&sk=${encodedQuery}`;
+        const keywordSearchData = await axios.get(url);
+        $ = cheerio.load(keywordSearchData.data);
+        travelURLData = extractTravelSpotData($);
+      }
+
+      const travelSpotPromises = travelURLData.map((data) =>
+        getTravelSpotDetails(data.url, data.category),
+      );
       const travelSpots = await Promise.all(travelSpotPromises);
 
       return travelSpots.filter((spot) => spot !== null);

@@ -7,4 +7,5 @@ export type TravelSpot = {
   name: string;
   location: LatAndLng;
   description: string;
+  categories: string;
 };

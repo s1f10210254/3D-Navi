@@ -11,11 +11,13 @@ type MapBoxMapProps = {
 const MapBoxMap = ({ allDestinationSpots, currentLocation }: MapBoxMapProps) => {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const markerRef = useRef<HTMLDivElement[]>([]);
+  const currentLocationElement = useRef<HTMLDivElement | null>(null);
   const { selectedSpots, onMarkerClick, onDecide } = useMap(
     allDestinationSpots,
     currentLocation,
     mapContainer,
     markerRef,
+    currentLocationElement,
   );
 
   return (
@@ -31,8 +33,14 @@ const MapBoxMap = ({ allDestinationSpots, currentLocation }: MapBoxMapProps) => 
           }}
           onClick={() => onMarkerClick(index)}
           className={styles.destinationPin}
-        />
+        >
+          <h3 className={styles.placeName}>{spot.name}</h3>
+        </div>
       ))}
+
+      <div ref={currentLocationElement} className={styles.currentLocationPin}>
+        <h3 className={styles.currentName}>現在地</h3>
+      </div>
 
       <div>
         {selectedSpots.map((spot, index) => (
