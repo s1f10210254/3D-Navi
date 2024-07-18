@@ -1,4 +1,5 @@
 import { Header } from 'components/header/Header';
+import { Hooter } from 'components/hooter/Hooter';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -22,8 +23,8 @@ const TravelDestination = () => {
 
   return (
     <div>
-      <Header />
       <div className={styles.container}>
+        <Header />
         <h1 className={styles.title}>
           TravelDestination
           <br />
@@ -32,7 +33,7 @@ const TravelDestination = () => {
         <img src={imageUrl} alt="Google Image" className={styles.image} />
 
         <div className={styles.searchBox}>
-          <p>行きたい場所を入力してください</p>
+          <div className={styles.normaltext}>行きたい場所を入力してください</div>
           <div className={styles.box}>
             <div className={styles.subject}>観光地</div>
             <input
@@ -61,6 +62,7 @@ const TravelDestination = () => {
             </li>
           ))}
         </ul>
+        <Hooter />
       </div>
     </div>
   );
