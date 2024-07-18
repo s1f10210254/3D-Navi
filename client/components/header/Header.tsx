@@ -1,5 +1,5 @@
+import iconLogo from 'client/public/images/github-logo_icon-icons.webp';
 import styles from './header.module.css';
-import iconLogo from './img/github-logo_icon-icons.webp';
 
 export const Header = () => {
   return (
