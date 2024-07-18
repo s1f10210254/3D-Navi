@@ -1,3 +1,4 @@
+import { staticPath } from 'utils/$path';
 import styles from './header.module.css';
 export const Header = () => {
   return (
@@ -9,7 +10,11 @@ export const Header = () => {
         rel="noopener noreferrer"
         className={styles.logo}
       >
-        <img src="../images/github-logo_icon-icons.webp" className={styles.githubLogo} alt="logo" />
+        <img
+          src={staticPath.images.github_logo_icon_icons_webp}
+          className={styles.githubLogo}
+          alt="logo"
+        />
       </a>
     </div>
   );
