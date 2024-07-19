@@ -1,7 +1,7 @@
 import MapboxLanguage from '@mapbox/mapbox-gl-language';
 import type { LatAndLng, TravelSpot } from 'common/types/travelSpots';
 import mapboxgl from 'mapbox-gl';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { staticPath } from 'utils/$path';
 import { createCustomLayer } from './utils/3DCustomLayer';
 import { displayRoute } from './utils/displayRoute';
@@ -14,9 +14,8 @@ const useMap = (
   currentLocationElement: React.RefObject<HTMLDivElement>,
 ) => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
-  const [selectedSpots, setSelectedSpots] = useState<TravelSpot[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [carLayer, setCarLayer] = useState<any>(null);
+  const carLayerRef = useRef<any>(null);
 
   useEffect(() => {
     const MAPBOX_API_KEY = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
@@ -59,6 +58,18 @@ const useMap = (
         .addTo(mapRef.current);
     });
 
+    mapRef.current.on('load', async () => {
+      if (mapRef.current === null) return;
+      if (mapRef.current.isStyleLoaded()) {
+        const waypoints: [number, number][] = allDestinationSpots.map((spot) => [
+          spot.location.longitude,
+          spot.location.latitude,
+        ]);
+        waypoints.unshift([currentLocation.longitude, currentLocation.latitude]);
+        await displayRoute(mapRef.current, waypoints, carLayerRef);
+      }
+    });
+
     const carCustomLayer = createCustomLayer(
       mapRef,
       currentLocation,
@@ -69,7 +80,7 @@ const useMap = (
       if (mapRef.current === null) return;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       mapRef.current.addLayer(carCustomLayer as any, 'waterway-label');
-      setCarLayer(carCustomLayer);
+      carLayerRef.current = carCustomLayer;
     });
 
     return () => {
@@ -82,33 +93,26 @@ const useMap = (
     mapRef,
     markerRef,
     currentLocationElement,
+    carLayerRef,
   ]);
-
-  const onDestinationMarkerClick = (index: number) => {
-    if (selectedSpots.includes(allDestinationSpots[index])) {
-      setSelectedSpots(selectedSpots.filter((spot) => spot !== allDestinationSpots[index]));
-    } else {
-      setSelectedSpots([...selectedSpots, allDestinationSpots[index]]);
-    }
-  };
 
   const onDecide = async () => {
     if (mapRef.current === null) return;
     if (mapRef.current.isStyleLoaded()) {
-      const waypoints: [number, number][] = selectedSpots.map((spot) => [
+      const waypoints: [number, number][] = allDestinationSpots.map((spot) => [
         spot.location.longitude,
         spot.location.latitude,
       ]);
       waypoints.unshift([currentLocation.longitude, currentLocation.latitude]);
       if (waypoints.length > 1) {
-        await displayRoute(mapRef.current, waypoints, carLayer);
+        await displayRoute(mapRef.current, waypoints, carLayerRef);
       } else {
         alert('行き先を2つ以上選択してください');
       }
     }
   };
 
-  return { mapRef, selectedSpots, onMarkerClick: onDestinationMarkerClick, onDecide };
+  return { onDecide };
 };
 
 export default useMap;
