@@ -1,6 +1,7 @@
 import type { LatAndLng, TravelSpot } from 'common/types/travelSpots';
 import SelectedTravelSpots from 'components/selectedTravelSpots/SelectedTravelSpots';
 import { useAtom } from 'jotai';
+import { useRouter } from 'next/router';
 import { useRef } from 'react';
 import { getSelectedTravelSpots } from 'utils/selectedTravelSpots';
 import { travelSpotsAtom } from 'utils/travelSpotsAtom';
@@ -16,15 +17,15 @@ const MapBoxMap = ({ allDestinationSpots, currentLocation }: MapBoxMapProps) => 
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const markerRef = useRef<HTMLDivElement[]>([]);
   const currentLocationElement = useRef<HTMLDivElement | null>(null);
-  const { onBackPage } = useMap(
-    allDestinationSpots,
-    currentLocation,
-    mapContainer,
-    markerRef,
-    currentLocationElement,
-  );
+  useMap(allDestinationSpots, currentLocation, mapContainer, markerRef, currentLocationElement);
+
   const [travelSpots, setTravelSpots] = useAtom<TravelSpot[]>(travelSpotsAtom);
   const selectedSpots = getSelectedTravelSpots(travelSpots);
+
+  const router = useRouter();
+  const onBackPage = () => {
+    router.push('/travelSpotList');
+  };
 
   return (
     <div className={styles.container}>
