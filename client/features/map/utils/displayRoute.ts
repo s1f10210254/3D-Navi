@@ -1,6 +1,7 @@
 import * as turf from '@turf/turf';
 import mapboxgl from 'mapbox-gl';
 import type { RefObject } from 'react';
+import { getZoomAndScaleAndSpeed } from './someVariables';
 
 const MAPBOX_BASE_URL = 'https://api.mapbox.com';
 
@@ -32,86 +33,79 @@ export const displayRoute = async (
       coordinates: route,
     },
   };
-  if (map.getSource('route-details')) {
-    (map.getSource('route-details') as mapboxgl.GeoJSONSource).setData(geojson);
-  } else {
-    map.addSource('route-details', {
-      type: 'geojson',
-      data: geojson,
-    });
-    map.addLayer({
-      id: 'route',
-      type: 'line',
+
+  map.addSource('route-details', {
+    type: 'geojson',
+    data: geojson,
+  });
+  map.addLayer({
+    id: 'route',
+    type: 'line',
+    source: 'route-details',
+    layout: {
+      'line-join': 'round',
+      'line-cap': 'round',
+    },
+    paint: {
+      'line-color': 'blue',
+      'line-width': 5,
+      'line-opacity': 0.75,
+    },
+  });
+  map.addLayer(
+    {
+      id: 'routearrows',
+      type: 'symbol',
       source: 'route-details',
       layout: {
-        'line-join': 'round',
-        'line-cap': 'round',
+        'symbol-placement': 'line',
+        'text-field': '▶',
+        'text-size': ['interpolate', ['linear'], ['zoom'], 12, 24, 22, 60],
+        'symbol-spacing': ['interpolate', ['linear'], ['zoom'], 12, 30, 22, 160],
+        'text-keep-upright': false,
       },
       paint: {
-        'line-color': 'blue',
-        'line-width': 5,
-        'line-opacity': 0.75,
+        'text-color': 'black',
+        'text-halo-color': 'white',
+        'text-halo-width': 2,
       },
-    });
-    map.addLayer(
-      {
-        id: 'routearrows',
-        type: 'symbol',
-        source: 'route-details',
-        layout: {
-          'symbol-placement': 'line',
-          'text-field': '▶',
-          'text-size': ['interpolate', ['linear'], ['zoom'], 12, 24, 22, 60],
-          'symbol-spacing': ['interpolate', ['linear'], ['zoom'], 12, 30, 22, 160],
-          'text-keep-upright': false,
-        },
-        paint: {
-          'text-color': 'black',
-          'text-halo-color': 'white',
-          'text-halo-width': 2,
-        },
-      },
-      'waterway-label',
-    );
-  }
+    },
+    'waterway-label',
+  );
 
-  if (carLayerRef?.current) {
-    const line = turf.lineString(route);
-    const totalDistance = turf.length(line);
-    const speed = 1;
-    const steps = Math.ceil(totalDistance / speed);
-    const interval = totalDistance / steps;
-    let step = 0;
+  const line = turf.lineString(route);
+  const totalDistance = turf.length(line);
 
-    const zoomLevel = Math.max(10 - Math.log10(totalDistance), 10);
-    // const modelScale = Math.max(1 - Math.log10(totalDistance), 1);
+  const { zoom, speed } = getZoomAndScaleAndSpeed(totalDistance);
 
-    map.easeTo({
-      zoom: zoomLevel,
-      duration: 1000,
-    });
-    // carLayer.updateScale(modelScale);
+  const steps = Math.ceil(totalDistance / speed);
+  const interval = totalDistance / steps;
+  let step = 0;
 
-    const moveCar = () => {
-      if (step <= steps) {
-        const segment = turf.along(line, interval * step);
-        const coords = segment.geometry.coordinates;
-        const nextSegment = turf.along(line, interval * (step + 1));
-        const nextCoords = nextSegment.geometry.coordinates;
+  map.easeTo({
+    zoom,
+    duration: 1000,
+  });
 
-        const bearing = turf.bearing(turf.point(coords), turf.point(nextCoords));
-        const closestDirection = getClosestDirection(bearing);
-        carLayerRef.current.updateLngLat({
-          latLng: [coords[0], coords[1]],
-          bearing: closestDirection,
-        });
-        carLayerRef.current.updateCamera([coords[0], coords[1]]);
-        step += 1;
-        requestAnimationFrame(moveCar);
-      }
-    };
-    moveCar();
-  }
+  const moveCar = () => {
+    if (step <= steps) {
+      const segment = turf.along(line, interval * step);
+      const coords = segment.geometry.coordinates;
+      const nextSegment = turf.along(line, interval * (step + 1));
+      const nextCoords = nextSegment.geometry.coordinates;
+
+      const bearing = turf.bearing(turf.point(coords), turf.point(nextCoords));
+      const closestDirection = getClosestDirection(bearing);
+      carLayerRef.current.updateLngLat({
+        latLng: [coords[0], coords[1]],
+        bearing: closestDirection,
+      });
+      carLayerRef.current.updateCamera([coords[0], coords[1]]);
+      step += 1;
+      requestAnimationFrame(moveCar);
+    }
+  };
+  moveCar();
 };
 
 // 方位角を16方向に丸める関数

@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react';
 import { staticPath } from 'utils/$path';
 import { createCustomLayer } from './utils/3DCustomLayer';
 import { displayRoute } from './utils/displayRoute';
+import { getZoomAndScaleAndSpeed, twoPointsDistance } from './utils/someVariables';
 
 const useMap = (
   allDestinationSpots: TravelSpot[],
@@ -24,8 +25,6 @@ const useMap = (
         'Mapbox API key is not defined. Please set NEXT_PUBLIC_MAPBOX_API_KEY in your environment variables',
       );
     mapboxgl.accessToken = MAPBOX_API_KEY;
-
-    if (!mapContainer.current) return;
 
     mapRef.current = new mapboxgl.Map({
       container: mapContainer.current ?? '',
@@ -59,8 +58,7 @@ const useMap = (
     });
 
     mapRef.current.on('load', async () => {
-      if (mapRef.current === null) return;
-      if (mapRef.current.isStyleLoaded()) {
+      if (mapRef.current?.isStyleLoaded()) {
         const waypoints: [number, number][] = allDestinationSpots.map((spot) => [
           spot.location.longitude,
           spot.location.latitude,
@@ -70,21 +68,31 @@ const useMap = (
       }
     });
 
+    const distances = allDestinationSpots.map((spot) => {
+      return twoPointsDistance(
+        { latitude: currentLocation.latitude, longitude: currentLocation.longitude },
+        { latitude: spot.location.latitude, longitude: spot.location.longitude },
+      );
+    });
+    const mostLargeDistance = Math.max(...distances);
+
+    const { scale } = getZoomAndScaleAndSpeed(mostLargeDistance);
+
     const carCustomLayer = createCustomLayer(
       mapRef,
       currentLocation,
       staticPath.models.car.scene_gltf,
+      scale,
     );
 
     mapRef.current.on('load', () => {
-      if (mapRef.current === null) return;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      mapRef.current.addLayer(carCustomLayer as any, 'waterway-label');
+      mapRef.current?.addLayer(carCustomLayer as any, 'waterway-label');
       carLayerRef.current = carCustomLayer;
     });
 
     return () => {
-      if (mapRef.current) mapRef.current.remove();
+      mapRef.current?.remove();
     };
   }, [
     allDestinationSpots,

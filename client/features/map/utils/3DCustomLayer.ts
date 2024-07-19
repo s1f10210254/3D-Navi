@@ -8,6 +8,7 @@ export const createCustomLayer = (
   mapRef: React.MutableRefObject<Map | null>,
   currentLocation: LatAndLng,
   modelPath: string,
+  modelScale: number,
 ) => {
   const camera = new THREE.Camera();
   const scene = new THREE.Scene();
@@ -51,7 +52,7 @@ export const createCustomLayer = (
 
       const loader = new GLTFLoader();
       loader.load(modelPath, (gltf) => {
-        gltf.scene.scale.set(5000, 5000, 5000);
+        gltf.scene.scale.set(modelScale, modelScale, modelScale);
         scene.add(gltf.scene);
         model = gltf.scene;
         mixer = new THREE.AnimationMixer(gltf.scene);
@@ -130,11 +131,6 @@ export const createCustomLayer = (
         center: latLng,
         duration: 1000,
       });
-    },
-    updateScale: (scale: number) => {
-      modelTransform.scale = scale;
-      model.scale.set(scale, scale, scale);
-      modelTransform.scale = scale;
     },
   };
 
