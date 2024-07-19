@@ -14,7 +14,6 @@
   flex-direction: column;
   gap: 24px;
   align-items: center;
-  width: 640px;
   width: -webkit-fill-available;
   height: -webkit-fill-available;
   margin-top: 60px;
@@ -23,10 +22,10 @@
 .titleContainer {
   display: flex;
   justify-content: center;
+  margin-top: 5%;
 }
 
 .title {
-  margin-top: 5%;
   font-size: calc(12px + 3vw);
   font-weight: bold;
 }
