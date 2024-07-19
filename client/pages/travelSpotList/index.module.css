@@ -1,14 +1,41 @@
+/* index.module.css */
+
+.container {
+  display: flex;
+  gap: 20px;
+}
+
+.listContainer,
+.selectedContainer {
+  flex: 1;
+  max-height: 100vh;
+  overflow-y: auto; /* 縦方向のスクロールを有効にする */
+}
+
+.list {
+  padding: 0;
+  list-style-type: none;
+}
+
 .listItem {
-  padding: 20px 0;
-  border-bottom: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.itemHeader {
+  display: flex;
+  align-items: center;
 }
 
 .listTitle {
-  margin: 0;
-  font-size: 1.5em;
+  margin-left: 10px;
+  font-weight: bold;
 }
 
 .listDescription {
   margin: 5px 0;
-  color: #555;
 }

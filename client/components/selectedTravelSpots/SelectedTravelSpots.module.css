@@ -1,0 +1,34 @@
+/* index.module.css */
+
+.listItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.listTitle {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.listDescription {
+  margin-right: 10px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 5px;
+}
+
+.moveButton {
+  padding: 2px 4px;
+  color: white;
+  cursor: pointer;
+  background-color: #007bff;
+  border: none;
+  border-radius: 2px;
+}
+
+.moveButton:hover {
+  background-color: #0056b3;
+}
