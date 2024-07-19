@@ -9,7 +9,7 @@ import styles from './index.module.css';
 
 const TravelDestination = () => {
   const [userDestination, setUserDestination] = useState<string>('');
-  const [travelSpots, setTravelSpots] = useAtom(travelSpotsAtom);
+  const [, setTravelSpots] = useAtom(travelSpotsAtom);
   const router = useRouter();
 
   const fetchTravelSpots = async () => {
