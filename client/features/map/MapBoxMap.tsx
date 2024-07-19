@@ -16,14 +16,23 @@ const MapBoxMap = ({ allDestinationSpots, currentLocation }: MapBoxMapProps) => 
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const markerRef = useRef<HTMLDivElement[]>([]);
   const currentLocationElement = useRef<HTMLDivElement | null>(null);
-  useMap(allDestinationSpots, currentLocation, mapContainer, markerRef, currentLocationElement);
+  const { onBackPage } = useMap(
+    allDestinationSpots,
+    currentLocation,
+    mapContainer,
+    markerRef,
+    currentLocationElement,
+  );
   const [travelSpots, setTravelSpots] = useAtom<TravelSpot[]>(travelSpotsAtom);
   const selectedSpots = getSelectedTravelSpots(travelSpots);
 
   return (
     <div className={styles.container}>
-      <div className={styles.selectedSpotList}>
-        <SelectedTravelSpots selectedSpots={selectedSpots} setTravelSpots={setTravelSpots} />
+      <div className={styles.selectedSpotListContainer}>
+        <div className={styles.selectedSpotList}>
+          <SelectedTravelSpots selectedSpots={selectedSpots} setTravelSpots={setTravelSpots} />
+        </div>
+        <button onClick={onBackPage}>戻る</button>
       </div>
       <div ref={mapContainer} className={styles.map} />
 

@@ -4,10 +4,16 @@
   height: auto;
 }
 
-.selectedSpotList {
+.selectedSpotListContainer {
   display: flex;
+  flex-flow: column;
   align-items: flex-start;
   width: 20%;
+  height: auto;
+}
+
+.selectedSpotList {
+  height: auto;
 }
 
 .selectedSpotList button {

@@ -1,6 +1,7 @@
 import MapboxLanguage from '@mapbox/mapbox-gl-language';
 import type { LatAndLng, TravelSpot } from 'common/types/travelSpots';
 import mapboxgl from 'mapbox-gl';
+import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 import { staticPath } from 'utils/$path';
 import { createCustomLayer } from './utils/3DCustomLayer';
@@ -82,7 +83,6 @@ const useMap = (
       mapRef.current.addLayer(carCustomLayer as any, 'waterway-label');
       carLayerRef.current = carCustomLayer;
     });
-
     return () => {
       if (mapRef.current) mapRef.current.remove();
     };
@@ -96,7 +96,12 @@ const useMap = (
     carLayerRef,
   ]);
 
-  return {};
+  const router = useRouter();
+  const onBackPage = () => {
+    router.push('/travelSpotList');
+  };
+
+  return { onBackPage };
 };
 
 export default useMap;
