@@ -1,14 +1,13 @@
 import { Header } from 'components/header/Header';
-import { Hooter } from 'components/hooter/Hooter';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { staticPath } from 'utils/$path';
 import { apiClient } from 'utils/apiClient';
 import { travelSpotsAtom } from 'utils/travelSpotsAtom';
 import styles from './index.module.css';
 
 const TravelDestination = () => {
-  const imageUrl = '';
   const [userDestination, setUserDestination] = useState<string>('');
   const [travelSpots, setTravelSpots] = useAtom(travelSpotsAtom);
   const router = useRouter();
@@ -30,7 +29,11 @@ const TravelDestination = () => {
           <br />
         </h1>
         {/* ここになにかしらのアイコン画像を入れいる */}
-        <img src={imageUrl} alt="Google Image" className={styles.image} />
+        <img
+          src={staticPath.images.undraw_World_re_768g_png}
+          alt="world Image"
+          className={styles.image}
+        />
 
         <div className={styles.searchBox}>
           <div className={styles.normaltext}>行きたい場所を入力してください</div>
@@ -48,21 +51,6 @@ const TravelDestination = () => {
             検索
           </button>
         </div>
-
-        <ul>
-          {travelSpots.map((spot, index) => (
-            <li key={index} className={styles.listItem}>
-              <h2 className={styles.listTitle}>名前：{spot.name}</h2>
-              <p className={styles.listDescription}>概要：{spot.description}</p>
-              <br />
-              <p className={styles.listDescription}>カテゴリ：{spot.categories}</p>
-              <p className={styles.listDescription}>
-                緯度:{spot.location.latitude}、経度:{spot.location.longitude}
-              </p>
-            </li>
-          ))}
-        </ul>
-        <Hooter />
       </div>
     </div>
   );
