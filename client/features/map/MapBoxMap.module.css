@@ -1,12 +1,12 @@
 .container {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   height: auto;
 }
 
 .map {
   display: flex;
-  width: 125vh;
+  width: 80%;
   height: 94vh;
 }
 
