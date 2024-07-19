@@ -78,10 +78,19 @@ export const displayRoute = async (
   if (carLayerRef?.current) {
     const line = turf.lineString(route);
     const totalDistance = turf.length(line);
-    const speed = 0.01;
+    const speed = 1;
     const steps = Math.ceil(totalDistance / speed);
     const interval = totalDistance / steps;
     let step = 0;
+
+    const zoomLevel = Math.max(10 - Math.log10(totalDistance), 10);
+    // const modelScale = Math.max(1 - Math.log10(totalDistance), 1);
+
+    map.easeTo({
+      zoom: zoomLevel,
+      duration: 1000,
+    });
+    // carLayer.updateScale(modelScale);
 
     const moveCar = () => {
       if (step <= steps) {
