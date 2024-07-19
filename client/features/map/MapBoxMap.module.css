@@ -1,12 +1,28 @@
 .container {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   height: auto;
+}
+
+.selectedSpotListContainer {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  width: 20%;
+  height: auto;
+}
+
+.selectedSpotList {
+  height: auto;
+}
+
+.selectedSpotList button {
+  display: none;
 }
 
 .map {
   display: flex;
-  width: 125vh;
+  width: 80%;
   height: 94vh;
 }
 
