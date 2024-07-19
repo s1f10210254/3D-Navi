@@ -1,5 +1,9 @@
 import type { LatAndLng, TravelSpot } from 'common/types/travelSpots';
+import SelectedTravelSpots from 'components/selectedTravelSpots/SelectedTravelSpots';
+import { useAtom } from 'jotai';
 import { useRef } from 'react';
+import { getSelectedTravelSpots } from 'utils/selectedTravelSpots';
+import { travelSpotsAtom } from 'utils/travelSpotsAtom';
 import styles from './MapBoxMap.module.css';
 import useMap from './useMap';
 
@@ -12,16 +16,15 @@ const MapBoxMap = ({ allDestinationSpots, currentLocation }: MapBoxMapProps) => 
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const markerRef = useRef<HTMLDivElement[]>([]);
   const currentLocationElement = useRef<HTMLDivElement | null>(null);
-  const { onDecide } = useMap(
-    allDestinationSpots,
-    currentLocation,
-    mapContainer,
-    markerRef,
-    currentLocationElement,
-  );
+  useMap(allDestinationSpots, currentLocation, mapContainer, markerRef, currentLocationElement);
+  const [travelSpots, setTravelSpots] = useAtom<TravelSpot[]>(travelSpotsAtom);
+  const selectedSpots = getSelectedTravelSpots(travelSpots);
 
   return (
     <div className={styles.container}>
+      <div className={styles.selectedSpotList}>
+        <SelectedTravelSpots selectedSpots={selectedSpots} setTravelSpots={setTravelSpots} />
+      </div>
       <div ref={mapContainer} className={styles.map} />
 
       {allDestinationSpots.map((spot, index) => (

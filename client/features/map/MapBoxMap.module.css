@@ -4,6 +4,16 @@
   height: auto;
 }
 
+.selectedSpotList {
+  display: flex;
+  align-items: flex-start;
+  width: 20%;
+}
+
+.selectedSpotList button {
+  display: none;
+}
+
 .map {
   display: flex;
   width: 80%;
