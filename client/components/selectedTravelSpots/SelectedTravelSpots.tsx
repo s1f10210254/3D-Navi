@@ -93,26 +93,6 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
           </ul>
         </SortableContext>
       </DndContext>
-      {/*
-      <ul>
-        {selectedSpots
-          .sort((a, b) => (a.index !== null && b.index !== null ? a.index - b.index : 0))
-          .map((spot, index) => (
-            <li key={index} className={styles.listItem}>
-              <p className={styles.listTitle}>
-                {index + 1}.{spot.name}
-              </p>
-              <div className={styles.buttonGroup}>
-                <button className={styles.moveButton} onClick={() => moveUp(index)}>
-                  上へ
-                </button>
-                <button className={styles.moveButton} onClick={() => moveDown(index)}>
-                  下へ
-                </button>
-              </div>
-            </li>
-          ))}
-      </ul> */}
       <button onClick={handleReset}>リセット</button>
       <button onClick={handleDecide}>行き先決定</button>
     </div>
