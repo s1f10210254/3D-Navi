@@ -1,5 +1,6 @@
 import * as turf from '@turf/turf';
 import mapboxgl from 'mapbox-gl';
+import type { RefObject } from 'react';
 
 const MAPBOX_BASE_URL = 'https://api.mapbox.com';
 
@@ -7,7 +8,7 @@ export const displayRoute = async (
   map: mapboxgl.Map,
   waypoints: [number, number][],
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  carLayer: any,
+  carLayerRef: RefObject<any>,
 ) => {
   const coords = waypoints.map((point) => point.join(',')).join(';');
   const requestUrl = new URL(
@@ -74,7 +75,7 @@ export const displayRoute = async (
     );
   }
 
-  if (carLayer) {
+  if (carLayerRef?.current) {
     const line = turf.lineString(route);
     const totalDistance = turf.length(line);
     const speed = 0.01;
@@ -91,7 +92,11 @@ export const displayRoute = async (
 
         const bearing = turf.bearing(turf.point(coords), turf.point(nextCoords));
         const closestDirection = getClosestDirection(bearing);
-        carLayer.updateLngLat({ latLng: [coords[0], coords[1]], bearing: closestDirection });
+        carLayerRef.current.updateLngLat({
+          latLng: [coords[0], coords[1]],
+          bearing: closestDirection,
+        });
+        carLayerRef.current.updateCamera([coords[0], coords[1]]);
         step += 1;
         requestAnimationFrame(moveCar);
       }

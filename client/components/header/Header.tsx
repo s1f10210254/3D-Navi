@@ -1,9 +1,16 @@
+import { useRouter } from 'next/router';
 import { staticPath } from 'utils/$path';
 import styles from './header.module.css';
 export const Header = () => {
+  const router = useRouter();
+  const backHome = () => {
+    router.push('/');
+  };
   return (
     <div className={styles.header}>
-      <div className={styles.appTitle}>Travel</div>
+      <div onClick={backHome}>
+        <div className={styles.appTitle}>Travel</div>
+      </div>
       <a
         href="https://github.com/imoken777/hackathon-vol9"
         target="_blank"
