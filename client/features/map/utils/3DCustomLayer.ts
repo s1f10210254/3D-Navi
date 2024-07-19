@@ -51,7 +51,7 @@ export const createCustomLayer = (
 
       const loader = new GLTFLoader();
       loader.load(modelPath, (gltf) => {
-        gltf.scene.scale.set(300, 300, 300);
+        gltf.scene.scale.set(5000, 5000, 5000);
         scene.add(gltf.scene);
         model = gltf.scene;
         mixer = new THREE.AnimationMixer(gltf.scene);
@@ -124,6 +124,17 @@ export const createCustomLayer = (
       if (bearing !== undefined) {
         modelTransform.rotateY = THREE.MathUtils.degToRad(bearing);
       }
+    },
+    updateCamera: (latLng: mapboxgl.LngLatLike) => {
+      mapRef.current?.easeTo({
+        center: latLng,
+        duration: 1000,
+      });
+    },
+    updateScale: (scale: number) => {
+      modelTransform.scale = scale;
+      model.scale.set(scale, scale, scale);
+      modelTransform.scale = scale;
     },
   };
 

@@ -24,9 +24,9 @@ const TravelSpotList = () => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <Header />
-      <div className={styles.container}>
+      <div className={styles.main}>
         <SelectedTravelSpots selectedSpots={selectedSpots} setTravelSpots={setTravelSpots} />
 
         <div className={styles.listContainer}>

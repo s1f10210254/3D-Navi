@@ -21,35 +21,37 @@ const TravelDestination = () => {
   };
 
   return (
-    <div>
-      <div className={styles.container}>
-        <Header />
-        <h1 className={styles.title}>
-          TravelDestination
-          <br />
-        </h1>
-        {/* ここになにかしらのアイコン画像を入れいる */}
-        <img
-          src={staticPath.images.undraw_World_re_768g_png}
-          alt="world Image"
-          className={styles.image}
-        />
+    <div className={styles.container}>
+      <Header />
+      <div className={styles.main}>
+        <div className={styles.titleContainer}>
+          <div className={styles.title}>TravelDestination</div>
+        </div>
 
-        <div className={styles.searchBox}>
-          <div className={styles.normaltext}>行きたい場所を入力してください</div>
-          <div className={styles.box}>
-            <div className={styles.subject}>観光地</div>
-            <input
-              value={userDestination}
-              onChange={(e) => setUserDestination(e.target.value)}
-              className={styles.inp}
-              placeholder="例:京都"
-            />
+        <div className={styles.imageBox}>
+          <img
+            src={staticPath.images.undraw_World_re_768g_png}
+            alt="world Image"
+            className={styles.image}
+          />
+        </div>
+        <div className={styles.searchContainer}>
+          <div className={styles.searchBox}>
+            <div className={styles.normalText}>行きたい場所を入力してください</div>
+            <div className={styles.box}>
+              <div className={styles.subject}>観光地</div>
+              <input
+                value={userDestination}
+                onChange={(e) => setUserDestination(e.target.value)}
+                className={styles.inp}
+                placeholder="例:京都"
+              />
+            </div>
+
+            <button onClick={fetchTravelSpots} className={styles.search}>
+              検索
+            </button>
           </div>
-
-          <button onClick={fetchTravelSpots} className={styles.search}>
-            検索
-          </button>
         </div>
       </div>
     </div>

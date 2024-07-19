@@ -2,14 +2,31 @@
 
 .container {
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  overflow: auto;
+}
+
+.container ::-webkit-scrollbar {
+  display: none;
+}
+
+.main {
+  display: flex;
+
+  /* gap: 32px; */
+  margin-top: 60px;
 }
 
 .listContainer,
 .selectedContainer {
   flex: 1;
   max-height: 100vh;
-  overflow-y: auto; /* 縦方向のスクロールを有効にする */
+  overflow-y: auto;
 }
 
 .list {
