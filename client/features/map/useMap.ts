@@ -82,7 +82,6 @@ const useMap = (
       mapRef.current.addLayer(carCustomLayer as any, 'waterway-label');
       carLayerRef.current = carCustomLayer;
     });
-
     return () => {
       if (mapRef.current) mapRef.current.remove();
     };
@@ -96,23 +95,7 @@ const useMap = (
     carLayerRef,
   ]);
 
-  const onDecide = async () => {
-    if (mapRef.current === null) return;
-    if (mapRef.current.isStyleLoaded()) {
-      const waypoints: [number, number][] = allDestinationSpots.map((spot) => [
-        spot.location.longitude,
-        spot.location.latitude,
-      ]);
-      waypoints.unshift([currentLocation.longitude, currentLocation.latitude]);
-      if (waypoints.length > 1) {
-        await displayRoute(mapRef.current, waypoints, carLayerRef);
-      } else {
-        alert('行き先を2つ以上選択してください');
-      }
-    }
-  };
-
-  return { onDecide };
+  return {};
 };
 
 export default useMap;
