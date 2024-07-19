@@ -24,6 +24,9 @@ export const getTravelSpotDetails = async (
       .text()
       .trim();
 
+    // セレクターを簡略化
+    const photoUrl = $('img.sp-image.shisetsu_mainPhoto_image').attr('src');
+
     const address = $(
       '#main_container > main > div.shisetsu_contentBody > div > section > div > div.shisetsu_informationList > dl:nth-child(2) > dd > ul > li:nth-child(1)',
     )
@@ -31,6 +34,8 @@ export const getTravelSpotDetails = async (
       .trim();
 
     const coordinates = await fetchCoordinates(address);
+
+    console.log('photoURL:', photoUrl);
 
     if (coordinates) {
       return {
@@ -40,6 +45,7 @@ export const getTravelSpotDetails = async (
           longitude: coordinates.longitude,
         },
         description,
+        photoUrl: photoUrl || null,
         categories: category,
         isSelected: false,
         index: null,
@@ -51,7 +57,9 @@ export const getTravelSpotDetails = async (
           latitude: 0,
           longitude: 0,
         },
+
         description,
+        photoUrl: photoUrl || null,
         categories: category,
         isSelected: false,
         index: null,

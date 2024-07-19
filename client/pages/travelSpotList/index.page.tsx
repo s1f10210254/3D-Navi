@@ -41,6 +41,15 @@ const TravelSpotList = () => {
                 <h2 className={styles.listTitle}>{spot.name}</h2>
               </div>
               <p className={styles.listDescription}>{spot.description}</p>
+              {spot.photoUrl ? (
+                <img
+                  src={spot.photoUrl}
+                  alt={spot.name}
+                  style={{ maxHeight: '100px', maxWidth: '200px' }}
+                />
+              ) : (
+                <p>写真なし</p>
+              )}
               <br />
               <p className={styles.listDescription}>カテゴリ：{spot.categories}</p>
             </li>
