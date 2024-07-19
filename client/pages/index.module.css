@@ -1,3 +1,8 @@
+:root {
+  --main-color: #e95464;
+  --sub-color: #e89e54;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -36,7 +41,7 @@
   justify-content: center;
   width: 500px;
   height: 200px;
-  border: 1.5px solid #e95464;
+  border: 1.5px solid var(--main-color);
   border-radius: 30px;
   box-shadow: 0 15px 15px -10px rgb(0 0 0 / 20%);
 }
@@ -58,7 +63,7 @@
 }
 
 .box:hover {
-  outline: 1.5px solid #e89e54;
+  outline: 1.5px solid var(--sub-color);
 }
 
 .subject {
@@ -75,7 +80,7 @@
   width: 80%;
   height: 100%;
   padding-left: 3%;
-  border: #e95464;
+  border: var(--main-color);
   border-left: 1px solid #b6b5b5;
   border-radius: 0 15px 15px 0;
 }
@@ -92,26 +97,11 @@
   width: 100px;
   height: 30px;
   color: white;
-  background-color: #e95464;
+  background-color: var(--main-color);
   border: 0;
   border-radius: 15px;
 }
 
 .search:hover {
-  background-color: #e89e54;
-}
-
-.listItem {
-  padding: 20px 0;
-  border-bottom: 1px solid #ccc;
-}
-
-.listTitle {
-  margin: 0;
-  font-size: 1.5em;
-}
-
-.listDescription {
-  margin: 5px 0;
-  color: #555;
+  background-color: var(--sub-color);
 }
