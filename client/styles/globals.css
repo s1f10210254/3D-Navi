@@ -18,7 +18,7 @@ a {
 
 :root {
   --border-color-default: #eee;
-  --font-color-default: #336;
+  --font-color-default: rgb(233 84 100);
 }
 
 ::-webkit-scrollbar {
