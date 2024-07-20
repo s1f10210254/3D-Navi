@@ -53,7 +53,6 @@ const TravelDestination = () => {
                 placeholder="例:京都"
               />
             </div>
-
             <button onClick={fetchTravelSpots} className={styles.search}>
               検索
             </button>
