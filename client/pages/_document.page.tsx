@@ -6,8 +6,9 @@ function Document() {
   return (
     <Html lang="ja">
       <Head>
+        <meta property="og:image" content={staticPath.images.$3d_navi_png} />
         <meta name="description" content={APP_NAME} />
-        <link rel="icon" href={staticPath.favicon_png} />
+        <link rel="icon" href={staticPath.images.$3d_navi_png} />
         <link
           href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Rampart+One&display=swap"
           rel="stylesheet"
