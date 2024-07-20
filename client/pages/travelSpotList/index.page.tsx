@@ -87,23 +87,23 @@ const TravelSpotList = () => {
 
   const renderMobileSpotItem = (spot: TravelSpot, index: number) => {
     return (
-      <div>
+      <>
         <h3 className={styles.listTitle}>{spot.name}</h3>
         {renderImage(spot)}
         {renderDescription(spot, index)}
         {renderCategory(spot, index)}
-      </div>
+      </>
     );
   };
 
   const renderPCSpotItem = (spot: TravelSpot) => {
     return (
-      <div>
+      <>
         <h3 className={styles.listTitle}>{spot.name}</h3>
         {renderImage(spot)}
         <p className={styles.listDescription}>{spot.description}</p>
         <p className={styles.listCategory}>カテゴリ:{spot.categories}</p>
-      </div>
+      </>
     );
   };
 
@@ -113,13 +113,9 @@ const TravelSpotList = () => {
       className={`${styles.listItem} ${spot.isSelected ? styles.selected : ''}`}
       onClick={() => handleItemClick(index)}
     >
-      <div>
-        {isMobile ? (
-          <div>{renderMobileSpotItem(spot, index)}</div>
-        ) : (
-          <div>{renderPCSpotItem(spot)}</div>
-        )}
-      </div>
+      <>
+        {isMobile ? <div>{renderMobileSpotItem(spot, index)}</div> : <>{renderPCSpotItem(spot)}</>}
+      </>
     </li>
   );
 
