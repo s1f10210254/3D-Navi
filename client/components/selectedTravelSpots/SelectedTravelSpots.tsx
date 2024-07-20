@@ -3,8 +3,11 @@ import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from 
 import { arrayMove, SortableContext, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import type { TravelSpot } from 'common/types/travelSpots';
+import { Loading } from 'components/loading/Loading';
 import { useRouter } from 'next/router';
 import type React from 'react';
+import { useState } from 'react';
+import { pagesPath } from 'utils/$path';
 import styles from './SelectedTravelSpots.module.css';
 
 type SelectedTravelSpotsProps = {
@@ -20,6 +23,7 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
   onBackPage,
   buttonType = 'travelSpotList',
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const sensors = useSensors(
@@ -45,12 +49,16 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
         index,
       }));
 
+      setIsLoading(true);
+
       // 全体のスポットリストを更新
       setTravelSpots((prevTravelSpots) =>
         prevTravelSpots.map(
           (spot) => updatedSelectedSpots.find((s: TravelSpot) => s.name === spot.name) || spot,
         ),
       );
+
+      setIsLoading(false);
     }
   };
 
@@ -74,7 +82,9 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
   };
 
   const handleDecide = () => {
-    router.push('/sightseeingMap');
+    setIsLoading(true);
+    router.push(pagesPath.sightseeingMap.$url());
+    setIsLoading(false);
   };
 
   const handleReset = () => {
@@ -85,6 +95,7 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
 
   return (
     <div className={styles.main}>
+      <Loading visible={isLoading} />
       <h2>選択されたスポット</h2>
       {buttonType === 'sightseeingMap' ? (
         <div className={styles.backButton}>

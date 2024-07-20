@@ -1,8 +1,9 @@
 import { Header } from 'components/header/Header';
+import { Loading } from 'components/loading/Loading';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { staticPath } from 'utils/$path';
+import { pagesPath, staticPath } from 'utils/$path';
 import { apiClient } from 'utils/apiClient';
 import { travelSpotsAtom } from 'utils/travelSpotsAtom';
 import styles from './index.module.css';
@@ -11,17 +12,21 @@ const TravelDestination = () => {
   const [userDestination, setUserDestination] = useState<string>('');
   const [, setTravelSpots] = useAtom(travelSpotsAtom);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchTravelSpots = async () => {
+    setIsLoading(true);
     const res = await apiClient.travelStartingSpot.$post({
       body: { destination: userDestination },
     });
     setTravelSpots(res);
-    router.push('/travelSpotList');
+    router.push(pagesPath.travelSpotList.$url());
+    setIsLoading(false);
   };
 
   return (
     <div className={styles.container}>
+      <Loading visible={isLoading} />
       <Header />
       <div className={styles.main}>
         <div className={styles.titleContainer}>
