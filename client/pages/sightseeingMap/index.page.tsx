@@ -4,6 +4,7 @@ import { Loading } from 'components/loading/Loading';
 import SelectedTravelSpots from 'components/selectedTravelSpots/SelectedTravelSpots';
 import MapBoxMap from 'features/map/MapBoxMap';
 import { useAtom } from 'jotai';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getSelectedTravelSpots } from 'utils/selectedTravelSpots';
 import { travelSpotsAtom } from 'utils/travelSpotsAtom';
@@ -21,6 +22,13 @@ const SightseeingMap = () => {
     });
   }, []);
 
+  const router = useRouter();
+  const onBackPage = () => {
+    router.push('/travelSpotList');
+  };
+
+  const buttonType = router.pathname === '/sightseeingMap' ? 'sightseeingMap' : 'travelSpotList';
+
   if (!currentLocation) {
     return <Loading visible />;
   }
@@ -29,9 +37,13 @@ const SightseeingMap = () => {
     <div className={styles.container}>
       <Header />
       <div className={styles.main}>
-        <SelectedTravelSpots selectedSpots={selectedSpots} setTravelSpots={setTravelSpots} />
+        <SelectedTravelSpots
+          selectedSpots={selectedSpots}
+          setTravelSpots={setTravelSpots}
+          buttonType={buttonType}
+          onBackPage={onBackPage}
+        />
         <MapBoxMap allDestinationSpots={selectedSpots} currentLocation={currentLocation} />
-        {/* <button onClick={onBackPage}>戻る</button> */}
       </div>
     </div>
   );

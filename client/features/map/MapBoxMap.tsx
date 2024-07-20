@@ -14,11 +14,6 @@ const MapBoxMap = ({ allDestinationSpots, currentLocation }: MapBoxMapProps) => 
   const currentLocationElement = useRef<HTMLDivElement | null>(null);
   useMap(allDestinationSpots, currentLocation, mapContainer, markerRef, currentLocationElement);
 
-  // const router = useRouter();
-  // const onBackPage = () => {
-  //   router.push('/travelSpotList');
-  // };
-
   return (
     <div>
       <div ref={mapContainer} className={styles.map} />
