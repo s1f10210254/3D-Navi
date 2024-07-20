@@ -2,7 +2,7 @@ FROM node:20-alpine
 
 WORKDIR /usr/src/app
 
-COPY package.json package-lock.json .
+COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY client/package.json client/package-lock.json ./client/
@@ -15,10 +15,6 @@ COPY . .
 
 ARG PORT=10000
 ARG NEXT_PUBLIC_API_BASE_PATH=/api
-ARG NEXT_PUBLIC_COGNITO_POOL_ENDPOINT
-ARG NEXT_PUBLIC_COGNITO_USER_POOL_ID
-ARG NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID
-ARG DATABASE_URL
 
 ENV NEXT_PUBLIC_API_BASE_PATH=$NEXT_PUBLIC_API_BASE_PATH
 ENV NEXT_PUBLIC_SERVER_PORT=$PORT
