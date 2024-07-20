@@ -37,6 +37,5 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: cp client/.env.example client/.env
-      - run: cp server/.env.example server/.env
       - run: npm test
       - run: npm run build
