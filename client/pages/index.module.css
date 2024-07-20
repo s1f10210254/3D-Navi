@@ -42,20 +42,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-<<<<<<< HEAD
-  width: 500px;
-  height: 200px;
-  border: 1.5px solid var(--main-color);
-=======
-  max-width: 600px;
+  justify-content: center;HEADwidth
+  height: 200px;max-width
   min-height: 200px;
   padding-right: 10%;
   padding-left: 10%;
-  border: 1.5px solid var(--font-color-default);
+  border: 1.5px solid var(--font-color-default);289f0783113db10f0accb1a3b13b553989345a82border-radius
+  box-shadow: 0 15px 15px -10px rgb(0 0 0 / 20%);
+<<<<<<< HEAD
+  width: 500px;
+=======
+  max-width: 600px;
 >>>>>>> 289f0783113db10f0accb1a3b13b553989345a82
   border-radius: 30px;
-  box-shadow: 0 15px 15px -10px rgb(0 0 0 / 20%);
 }
 
 .normalText {
@@ -75,7 +74,7 @@
   max-height: 56.8px;
   border-radius: 15px;
 <<<<<<< HEAD
-  outline: 1.5px solid #e95464;
+  outline: 1.5px solid #e95464;HEADoutline
 }
 
 .box:focus-within {
@@ -86,7 +85,7 @@
 .box:hover {
   outline: 1.5px solid var(--sub-color);
 =======
-  outline: 1.5px solid var(--font-color-default);
+  outline: 1.5px solid var(--font-color-default);outline
 >>>>>>> 289f0783113db10f0accb1a3b13b553989345a82
 }
 
@@ -106,12 +105,11 @@
   padding-left: 3%;
 <<<<<<< HEAD
   border: var(--main-color);
-  border-left: 1px solid #b6b5b5;
 =======
-  border: var(--font-color-default);
+  border: var(--font-color-default);border
   border-left: 1px solid gray;
 >>>>>>> 289f0783113db10f0accb1a3b13b553989345a82
-  border-radius: 0 15px 15px 0;
+  border-radius: 0 15px 15px 0;289f0783113db10f0accb1a3b13b553989345a82border-radius
 }
 
 .search {
@@ -121,7 +119,7 @@
   margin-bottom: 5%;
   color: white;
 <<<<<<< HEAD
-  background-color: var(--main-color);
+  background-color: var(--main-color);HEADbackground-color
   border: 0;
   border-radius: 15px;
 }
@@ -129,10 +127,11 @@
 .search:hover {
   background-color: var(--sub-color);
 }
+
 =======
-  cursor: pointer;
+  cursor: pointer;cursor
   background-color: #e95464;
   border: 0;
-  border-radius: 15px;
+  border-radius: 15px
 }
 >>>>>>> 289f0783113db10f0accb1a3b13b553989345a82
