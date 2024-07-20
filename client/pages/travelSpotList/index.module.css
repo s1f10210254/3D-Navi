@@ -24,10 +24,11 @@
   max-height: 100vh;
   margin-top: 1%;
   margin-right: 20px;
+  margin-left: 20px;
   overflow-y: auto;
 }
 
-@media screen and (width <= 800px) {
+@media screen and (width <= 600px) {
   .main {
     display: inline;
   }
@@ -36,7 +37,16 @@
     width: 100vw;
     padding: 5px;
     margin-right: 0;
+    margin-left: 0;
   }
+}
+
+.heading {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
 }
 
 .selectedContainer {
@@ -47,14 +57,25 @@
 
 .list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   padding: 0;
-  margin-top: 3%;
   list-style-type: none;
 }
 
 @media screen and (width <= 800px) {
+  .list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (width <= 600px) {
+  .list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (width <= 600px) {
   .list {
     display: block;
     padding: 0;

@@ -97,20 +97,20 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
   return (
     <div className={styles.main}>
       <Loading visible={isLoading} />
-      <h2>選択されたスポット</h2>
+      {/* <h2>選択されたスポット</h2> */}
       {buttonType === 'sightseeingMap' ? (
-        <div className={styles.backButton}>
-          <button onClick={onBackPage} className={styles.button}>
-            戻る
+        <div className={styles.backButtonContainer}>
+          <button onClick={onBackPage} className={styles.backButton}>
+            行き先選択に戻る
           </button>
         </div>
       ) : (
         <div className={styles.buttonGroup}>
-          <button onClick={handleDecide} className={styles.button}>
+          <button onClick={handleDecide} className={styles.decideButton}>
             行き先決定
           </button>
 
-          <button onClick={handleReset} className={styles.button}>
+          <button onClick={handleReset} className={styles.resetButton}>
             リセット
           </button>
         </div>

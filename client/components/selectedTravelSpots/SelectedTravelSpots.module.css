@@ -4,10 +4,11 @@
   display: flex;
   flex-direction: column;
   width: 20vw;
-  background-color: rgb((233 + 255) / 2.5, (84 + 255) / 2.5, (100 + 255) / 2.5);
+  background-color: rgb(247 236 237);
+  border-radius: 10px;
 }
 
-@media screen and (width <= 800px) {
+@media screen and (width <= 600px) {
   .main {
     display: flex;
     flex-direction: column;
@@ -24,6 +25,7 @@
 .listItem {
   margin-bottom: 10px;
   list-style: none;
+  border-radius: 10px;
   transition: transform 0.2s ease;
 }
 
@@ -44,26 +46,116 @@
 
 .buttonGroup {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 5px;
+  justify-content: center;
+  width: 100%;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-top: 20px;
+}
+
+.decideButton {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 70%;
+  padding: 10px 20px;
+  overflow: hidden;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: var(--font-color-default);
+  border: 2px solid var(--font-color-default);
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.decideButton::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  content: '';
+  background-color: rgb(233 84 100 / 70%);
+  transition: all 0.3s;
+  transform: translateX(-100%);
+}
+
+.decideButton:hover::before {
+  transform: translateX(0);
+}
+
+.decideButton:hover {
+  color: #fff;
+}
+
+.resetButton {
+  display: block;
+  width: 30%;
+  padding: 3px 5px;
+  font-weight: normal;
+  color: var(--font-color-default);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid var(--font-color-default);
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.resetButton:hover {
+  background-color: rgb(233 84 100 / 10%);
+}
+
+.backButtonContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .backButton {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
+  margin-right: 15%;
+  margin-left: 15%;
+  font-weight: normal;
+  color: var(--font-color-default);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid var(--font-color-default);
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
 }
 
-.button {
-  width: 100%;
-  color: #fff;
-  background-color: var(--font-color-default);
-  border: none;
-  border-radius: 30px;
+.backButton:hover {
+  background-color: rgb(233 84 100 / 10%);
 }
 
 @media screen and (width <= 800px) {
   .buttonGroup {
+    display: block;
+  }
+
+  .decideButton,
+  .resetButton {
+    width: 100%;
+    margin-top: 5%;
+  }
+}
+
+@media screen and (width <= 600px) {
+  .buttonGroup {
+    display: flex;
     flex-direction: row;
   }
 
@@ -71,7 +163,11 @@
     align-items: center;
   }
 
-  .button {
-    width: 80%;
+  .decideButton {
+    width: 60%;
+  }
+
+  .resetButton {
+    width: 30%;
   }
 }
