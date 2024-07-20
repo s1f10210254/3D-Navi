@@ -6,6 +6,7 @@ function Document() {
   return (
     <Html lang="ja">
       <Head>
+        <meta property="og:image" content={staticPath.images.$3d_navi_png} />
         <meta name="description" content={APP_NAME} />
         <link rel="icon" href={staticPath.images.$3d_navi_png} />
         <link
