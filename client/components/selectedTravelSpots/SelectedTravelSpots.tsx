@@ -83,9 +83,13 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
   };
 
   const handleDecide = () => {
-    setIsLoading(true);
-    router.push(pagesPath.sightseeingMap.$url());
-    setIsLoading(false);
+    if (selectedSpots.some((spot) => spot.isSelected)) {
+      setIsLoading(true);
+      router.push(pagesPath.sightseeingMap.$url());
+      setIsLoading(false);
+    } else {
+      alert('行き先を選択してください');
+    }
   };
 
   const handleReset = () => {
