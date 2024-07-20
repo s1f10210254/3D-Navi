@@ -1,33 +1,9 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: -webkit-fill-available;
-  height: -webkit-fill-available;
-  min-height: 100vh;
-  padding: 0 0.5rem;
-  overflow: auto;
-}
-
-.container ::-webkit-scrollbar {
-  display: none;
-}
-
-.main {
-  display: flex;
-  margin-top: 60px;
-}
-
 .map {
   width: 80vw;
   height: calc(100vh - 60px);
 }
 
 @media screen and (width <= 800px) {
-  .main {
-    display: inline;
-  }
-
   .map {
     width: 100vw;
     height: calc(100vh - 60px - 15vh);

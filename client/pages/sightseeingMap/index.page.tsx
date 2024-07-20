@@ -1,14 +1,18 @@
 import type { LatAndLng, TravelSpot } from 'common/types/travelSpots';
+import { Header } from 'components/header/Header';
 import { Loading } from 'components/loading/Loading';
+import SelectedTravelSpots from 'components/selectedTravelSpots/SelectedTravelSpots';
 import MapBoxMap from 'features/map/MapBoxMap';
 import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
+import { getSelectedTravelSpots } from 'utils/selectedTravelSpots';
 import { travelSpotsAtom } from 'utils/travelSpotsAtom';
+import styles from './index.module.css';
 
 const SightseeingMap = () => {
   const [currentLocation, setCurrentLocation] = useState<LatAndLng | null>(null);
-  const [travelSpots] = useAtom<TravelSpot[]>(travelSpotsAtom);
-  const selectedSpots = travelSpots.filter((spot) => spot.isSelected);
+  const [travelSpots, setTravelSpots] = useAtom<TravelSpot[]>(travelSpotsAtom);
+  const selectedSpots = getSelectedTravelSpots(travelSpots);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -22,8 +26,13 @@ const SightseeingMap = () => {
   }
 
   return (
-    <div>
-      <MapBoxMap allDestinationSpots={selectedSpots} currentLocation={currentLocation} />
+    <div className={styles.container}>
+      <Header />
+      <div className={styles.main}>
+        <SelectedTravelSpots selectedSpots={selectedSpots} setTravelSpots={setTravelSpots} />
+        <MapBoxMap allDestinationSpots={selectedSpots} currentLocation={currentLocation} />
+        {/* <button onClick={onBackPage}>戻る</button> */}
+      </div>
     </div>
   );
 };
