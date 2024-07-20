@@ -1,11 +1,11 @@
 import { APP_NAME } from 'common/constants';
 import { useRouter } from 'next/router';
-import { staticPath } from 'utils/$path';
+import { pagesPath, staticPath } from 'utils/$path';
 import styles from './header.module.css';
 export const Header = () => {
   const router = useRouter();
   const backHome = () => {
-    router.push('/');
+    router.push(pagesPath.$url());
   };
   return (
     <div className={styles.container}>

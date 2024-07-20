@@ -13,12 +13,19 @@ const SightseeingMap = () => {
   const [currentLocation, setCurrentLocation] = useState<LatAndLng | null>(null);
   const [travelSpots, setTravelSpots] = useAtom<TravelSpot[]>(travelSpotsAtom);
   const selectedSpots = getSelectedTravelSpots(travelSpots);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
       setCurrentLocation({ latitude, longitude });
     });
+
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
   }, []);
 
   if (!currentLocation) {
@@ -27,6 +34,7 @@ const SightseeingMap = () => {
 
   return (
     <div className={styles.container}>
+      <Loading visible={isLoading} />
       <Header />
       <div className={styles.main}>
         <SelectedTravelSpots selectedSpots={selectedSpots} setTravelSpots={setTravelSpots} />
