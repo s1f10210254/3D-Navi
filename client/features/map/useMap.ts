@@ -24,7 +24,7 @@ const useMap = (
 
     mapRef.current = new mapboxgl.Map({
       container: mapContainer.current ?? '',
-      style: 'mapbox://styles/mapbox/outdoors-v12',
+      style: 'mapbox://styles/s-renren/clyu873j7003s01ri45eqgn2y',
       center: [139.810833, 35.71],
       zoom: 10,
       pitch: 45,
