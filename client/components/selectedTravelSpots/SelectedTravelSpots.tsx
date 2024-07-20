@@ -80,21 +80,30 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
   };
 
   return (
-    <div>
+    <div className={styles.main}>
       <h2>選択されたスポット</h2>
-      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        <SortableContext items={selectedSpots.map((spot) => spot.name)}>
-          <ul>
-            {selectedSpots
-              .sort((a, b) => (a.index !== null && b.index !== null ? a.index - b.index : 0))
-              .map((spot) => (
-                <SortableItem key={spot.name} spot={spot} />
-              ))}
-          </ul>
-        </SortableContext>
-      </DndContext>
-      <button onClick={handleReset}>リセット</button>
-      <button onClick={handleDecide}>行き先決定</button>
+      <div className={styles.buttonGroup}>
+        <button onClick={handleDecide} className={styles.button}>
+          行き先決定
+        </button>
+
+        <button onClick={handleReset} className={styles.button}>
+          リセット
+        </button>
+      </div>
+      <div className={styles.listContainer}>
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <SortableContext items={selectedSpots.map((spot) => spot.name)}>
+            <ul>
+              {selectedSpots
+                .sort((a, b) => (a.index !== null && b.index !== null ? a.index - b.index : 0))
+                .map((spot) => (
+                  <SortableItem key={spot.name} spot={spot} />
+                ))}
+            </ul>
+          </SortableContext>
+        </DndContext>
+      </div>
     </div>
   );
 };

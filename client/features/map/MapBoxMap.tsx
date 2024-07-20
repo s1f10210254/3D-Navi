@@ -1,7 +1,7 @@
 import type { LatAndLng, TravelSpot } from 'common/types/travelSpots';
+import { Header } from 'components/header/Header';
 import SelectedTravelSpots from 'components/selectedTravelSpots/SelectedTravelSpots';
 import { useAtom } from 'jotai';
-import { useRouter } from 'next/router';
 import { useRef } from 'react';
 import { getSelectedTravelSpots } from 'utils/selectedTravelSpots';
 import { travelSpotsAtom } from 'utils/travelSpotsAtom';
@@ -22,36 +22,35 @@ const MapBoxMap = ({ allDestinationSpots, currentLocation }: MapBoxMapProps) => 
   const [travelSpots, setTravelSpots] = useAtom<TravelSpot[]>(travelSpotsAtom);
   const selectedSpots = getSelectedTravelSpots(travelSpots);
 
-  const router = useRouter();
-  const onBackPage = () => {
-    router.push('/travelSpotList');
-  };
+  // const router = useRouter();
+  // const onBackPage = () => {
+  //   router.push('/travelSpotList');
+  // };
 
   return (
     <div className={styles.container}>
-      <div className={styles.selectedSpotListContainer}>
-        <div className={styles.selectedSpotList}>
-          <SelectedTravelSpots selectedSpots={selectedSpots} setTravelSpots={setTravelSpots} />
-        </div>
-        <button onClick={onBackPage}>戻る</button>
-      </div>
-      <div ref={mapContainer} className={styles.map} />
+      <Header />
+      <div className={styles.main}>
+        <SelectedTravelSpots selectedSpots={selectedSpots} setTravelSpots={setTravelSpots} />
+        {/* <button onClick={onBackPage}>戻る</button> */}
+        <div ref={mapContainer} className={styles.map} />
 
-      {allDestinationSpots.map((spot, index) => (
-        <div
-          key={index}
-          ref={(el) => {
-            if (el === null) return;
-            markerRef.current[index] = el;
-          }}
-          className={styles.destinationPin}
-        >
-          <h3 className={styles.placeName}>{spot.name}</h3>
-        </div>
-      ))}
+        {allDestinationSpots.map((spot, index) => (
+          <div
+            key={index}
+            ref={(el) => {
+              if (el === null) return;
+              markerRef.current[index] = el;
+            }}
+            className={styles.destinationPin}
+          >
+            <h3 className={styles.placeName}>{spot.name}</h3>
+          </div>
+        ))}
 
-      <div ref={currentLocationElement} className={styles.currentLocationPin}>
-        <h3 className={styles.currentName}>現在地</h3>
+        <div ref={currentLocationElement} className={styles.currentLocationPin}>
+          <h3 className={styles.currentName}>現在地</h3>
+        </div>
       </div>
     </div>
   );

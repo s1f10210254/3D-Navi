@@ -1,29 +1,37 @@
 .container {
   display: flex;
-  justify-content: flex-end;
-  height: auto;
+  flex-direction: column;
+  align-items: center;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  overflow: auto;
 }
 
-.selectedSpotListContainer {
-  display: flex;
-  flex-flow: column;
-  align-items: flex-start;
-  width: 20%;
-  height: auto;
-}
-
-.selectedSpotList {
-  height: auto;
-}
-
-.selectedSpotList button {
+.container ::-webkit-scrollbar {
   display: none;
 }
 
-.map {
+.main {
   display: flex;
-  width: 80%;
-  height: 94vh;
+  margin-top: 60px;
+}
+
+.map {
+  width: 80vw;
+  height: calc(100vh - 60px);
+}
+
+@media screen and (width <= 800px) {
+  .main {
+    display: inline;
+  }
+
+  .map {
+    width: 100vw;
+    height: calc(100vh - 60px - 15vh);
+  }
 }
 
 .destinationPin {
