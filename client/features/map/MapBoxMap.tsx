@@ -12,18 +12,11 @@ const MapBoxMap = ({ allDestinationSpots, currentLocation }: MapBoxMapProps) => 
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const markerRef = useRef<HTMLDivElement[]>([]);
   const currentLocationElement = useRef<HTMLDivElement | null>(null);
-  const { onDecide } = useMap(
-    allDestinationSpots,
-    currentLocation,
-    mapContainer,
-    markerRef,
-    currentLocationElement,
-  );
+  useMap(allDestinationSpots, currentLocation, mapContainer, markerRef, currentLocationElement);
 
   return (
-    <div className={styles.container}>
+    <div>
       <div ref={mapContainer} className={styles.map} />
-
       {allDestinationSpots.map((spot, index) => (
         <div
           key={index}

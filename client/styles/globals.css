@@ -17,8 +17,13 @@ a {
 }
 
 :root {
+<<<<<<< HEAD
   --main-color: #e95464;
   --sub-color: #e89e54;
+=======
+  --border-color-default: #eee;
+  --font-color-default: rgb(233 84 100);
+>>>>>>> 289f0783113db10f0accb1a3b13b553989345a82
 }
 
 ::-webkit-scrollbar {

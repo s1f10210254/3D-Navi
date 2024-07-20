@@ -1,13 +1,13 @@
-.container {
-  display: flex;
-  justify-content: flex-end;
-  height: auto;
+.map {
+  width: 80vw;
+  height: calc(100vh - 60px);
 }
 
-.map {
-  display: flex;
-  width: 80%;
-  height: 94vh;
+@media screen and (width <= 600px) {
+  .map {
+    width: 100vw;
+    height: calc(100vh - 60px - 15vh);
+  }
 }
 
 .destinationPin {

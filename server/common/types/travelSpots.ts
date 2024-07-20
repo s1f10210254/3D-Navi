@@ -7,6 +7,7 @@ export type TravelSpot = {
   name: string;
   location: LatAndLng;
   description: string;
+  photoUrl: string | null;
   categories: string;
   isSelected: boolean;
   index: number | null;

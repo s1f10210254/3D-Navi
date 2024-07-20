@@ -3,19 +3,27 @@ import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from 
 import { arrayMove, SortableContext, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import type { TravelSpot } from 'common/types/travelSpots';
+import { Loading } from 'components/loading/Loading';
 import { useRouter } from 'next/router';
 import type React from 'react';
+import { useState } from 'react';
+import { pagesPath } from 'utils/$path';
 import styles from './SelectedTravelSpots.module.css';
 
 type SelectedTravelSpotsProps = {
   selectedSpots: TravelSpot[];
   setTravelSpots: React.Dispatch<React.SetStateAction<TravelSpot[]>>;
+  onBackPage?: () => void;
+  buttonType?: 'travelSpotList' | 'sightseeingMap';
 };
 
 const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
   selectedSpots,
   setTravelSpots,
+  onBackPage,
+  buttonType = 'travelSpotList',
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const sensors = useSensors(
@@ -41,12 +49,16 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
         index,
       }));
 
+      setIsLoading(true);
+
       // 全体のスポットリストを更新
       setTravelSpots((prevTravelSpots) =>
         prevTravelSpots.map(
           (spot) => updatedSelectedSpots.find((s: TravelSpot) => s.name === spot.name) || spot,
         ),
       );
+
+      setIsLoading(false);
     }
   };
 
@@ -62,15 +74,18 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
 
     return (
       <li ref={setNodeRef} style={style} {...attributes} {...listeners} className={styles.listItem}>
-        <p className={styles.listTitle}>
-          {spot.index !== null ? spot.index + 1 : ''}.{spot.name}
-        </p>
+        <h3 className={styles.listTitle}>
+          {spot.index !== null ? `${spot.index + 1}. ` : ''}
+          {spot.name}
+        </h3>
       </li>
     );
   };
 
   const handleDecide = () => {
-    router.push('/sightseeingMap');
+    setIsLoading(true);
+    router.push(pagesPath.sightseeingMap.$url());
+    setIsLoading(false);
   };
 
   const handleReset = () => {
@@ -80,21 +95,39 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
   };
 
   return (
-    <div>
-      <h2>選択されたスポット</h2>
-      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        <SortableContext items={selectedSpots.map((spot) => spot.name)}>
-          <ul>
-            {selectedSpots
-              .sort((a, b) => (a.index !== null && b.index !== null ? a.index - b.index : 0))
-              .map((spot) => (
-                <SortableItem key={spot.name} spot={spot} />
-              ))}
-          </ul>
-        </SortableContext>
-      </DndContext>
-      <button onClick={handleReset}>リセット</button>
-      <button onClick={handleDecide}>行き先決定</button>
+    <div className={styles.main}>
+      <Loading visible={isLoading} />
+      {/* <h2>選択されたスポット</h2> */}
+      {buttonType === 'sightseeingMap' ? (
+        <div className={styles.backButtonContainer}>
+          <button onClick={onBackPage} className={styles.backButton}>
+            行き先選択に戻る
+          </button>
+        </div>
+      ) : (
+        <div className={styles.buttonGroup}>
+          <button onClick={handleDecide} className={styles.decideButton}>
+            行き先決定
+          </button>
+
+          <button onClick={handleReset} className={styles.resetButton}>
+            リセット
+          </button>
+        </div>
+      )}
+      <div className={styles.listContainer}>
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <SortableContext items={selectedSpots.map((spot) => spot.name)}>
+            <ul>
+              {selectedSpots
+                .sort((a, b) => (a.index !== null && b.index !== null ? a.index - b.index : 0))
+                .map((spot) => (
+                  <SortableItem key={spot.name} spot={spot} />
+                ))}
+            </ul>
+          </SortableContext>
+        </DndContext>
+      </div>
     </div>
   );
 };

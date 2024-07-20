@@ -1,4 +1,3 @@
-import '@aws-amplify/ui-react/styles.css';
 import { APP_NAME } from 'common/constants';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import type { AppProps } from 'next/app';
