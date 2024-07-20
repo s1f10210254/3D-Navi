@@ -171,3 +171,17 @@
     width: 30%;
   }
 }
+
+.mobileMain {
+  position: relative;
+}
+
+.hamburgerIcon {
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.mobileMenu {
+  display: flex;
+  flex-direction: column;
+}

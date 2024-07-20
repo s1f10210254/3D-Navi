@@ -32,33 +32,35 @@ const TravelSpotList = () => {
   };
   return (
     <div className={styles.container}>
-      <Header />
-      <div className={styles.main}>
-        <SelectedTravelSpots selectedSpots={selectedSpots} setTravelSpots={setTravelSpots} />
+      <div>
+        <Header />
+        <div className={styles.main}>
+          <SelectedTravelSpots selectedSpots={selectedSpots} setTravelSpots={setTravelSpots} />
 
-        <div className={styles.listContainer}>
-          <h3 className={styles.heading}>行き先を選んでください</h3>
+          <div className={styles.listContainer}>
+            <h3 className={styles.heading}>行き先を選んでください</h3>
 
-          <ul className={styles.list}>
-            {travelSpots.map((spot, index) => (
-              <li
-                key={index}
-                className={`${styles.listItem} ${spot.isSelected ? styles.selected : ''}`}
-                onClick={() => handleItemClick(index)}
-              >
-                <div className={styles.imagesBox}>
-                  {spot.photoUrl ? (
-                    <img src={spot.photoUrl} alt={spot.name} className={styles.images} />
-                  ) : (
-                    <p>写真なし</p>
-                  )}
-                </div>
-                <h2 className={styles.listTitle}>{spot.name}</h2>
-                <p className={styles.listDescription}>{spot.description}</p>
-                <p className={styles.listCategory}>カテゴリ：{spot.categories}</p>
-              </li>
-            ))}
-          </ul>
+            <ul className={styles.list}>
+              {travelSpots.map((spot, index) => (
+                <li
+                  key={index}
+                  className={`${styles.listItem} ${spot.isSelected ? styles.selected : ''}`}
+                  onClick={() => handleItemClick(index)}
+                >
+                  <div className={styles.imagesBox}>
+                    {spot.photoUrl ? (
+                      <img src={spot.photoUrl} alt={spot.name} className={styles.images} />
+                    ) : (
+                      <p>写真なし</p>
+                    )}
+                  </div>
+                  <h2 className={styles.listTitle}>{spot.name}</h2>
+                  <p className={styles.listDescription}>{spot.description}</p>
+                  <p className={styles.listCategory}>カテゴリ：{spot.categories}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>

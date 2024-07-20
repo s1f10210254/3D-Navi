@@ -4,10 +4,12 @@ import { arrayMove, SortableContext, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import type { TravelSpot } from 'common/types/travelSpots';
 import { Loading } from 'components/loading/Loading';
+import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
 import type React from 'react';
 import { useState } from 'react';
 import { pagesPath } from 'utils/$path';
+import { isMobileAtom } from 'utils/travelSpotsAtom';
 import styles from './SelectedTravelSpots.module.css';
 
 type SelectedTravelSpotsProps = {
@@ -23,7 +25,9 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
   onBackPage,
   buttonType = 'travelSpotList',
 }) => {
+  const [isMobile] = useAtom(isMobileAtom);
   const [isLoading, setIsLoading] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
 
   const sensors = useSensors(
@@ -99,39 +103,85 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
   };
 
   return (
-    <div className={styles.main}>
-      <Loading visible={isLoading} />
-      {/* <h2>選択されたスポット</h2> */}
-      {buttonType === 'sightseeingMap' ? (
-        <div className={styles.backButtonContainer}>
-          <button onClick={onBackPage} className={styles.backButton}>
-            行き先選択に戻る
-          </button>
+    <div>
+      {isMobile ? (
+        <div className={styles.mobileMain}>
+          <div className={styles.hamburgerIcon} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            &#9776;
+          </div>
+          {isMenuOpen && (
+            <div>
+              <div className={styles.mobileMenu}>
+                <button onClick={handleDecide} className={styles.decideButton}>
+                  行き先決定
+                </button>
+
+                <button onClick={handleReset} className={styles.resetButton}>
+                  リセット
+                </button>
+              </div>
+              <div className={styles.listContainer}>
+                <DndContext
+                  sensors={sensors}
+                  collisionDetection={closestCenter}
+                  onDragEnd={handleDragEnd}
+                >
+                  <SortableContext items={selectedSpots.map((spot) => spot.name)}>
+                    <ul>
+                      {selectedSpots
+                        .sort((a, b) =>
+                          a.index !== null && b.index !== null ? a.index - b.index : 0,
+                        )
+                        .map((spot) => (
+                          <SortableItem key={spot.name} spot={spot} />
+                        ))}
+                    </ul>
+                  </SortableContext>
+                </DndContext>
+              </div>
+            </div>
+          )}
         </div>
       ) : (
-        <div className={styles.buttonGroup}>
-          <button onClick={handleDecide} className={styles.decideButton}>
-            行き先決定
-          </button>
+        <div className={styles.main}>
+          <Loading visible={isLoading} />
+          {/* <h2>選択されたスポット</h2> */}
+          {buttonType === 'sightseeingMap' ? (
+            <div className={styles.backButtonContainer}>
+              <button onClick={onBackPage} className={styles.backButton}>
+                行き先選択に戻る
+              </button>
+            </div>
+          ) : (
+            <div className={styles.buttonGroup}>
+              <button onClick={handleDecide} className={styles.decideButton}>
+                行き先決定
+              </button>
 
-          <button onClick={handleReset} className={styles.resetButton}>
-            リセット
-          </button>
+              <button onClick={handleReset} className={styles.resetButton}>
+                リセット
+              </button>
+            </div>
+          )}
+          <div className={styles.listContainer}>
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext items={selectedSpots.map((spot) => spot.name)}>
+                <ul>
+                  {selectedSpots
+                    .sort((a, b) => (a.index !== null && b.index !== null ? a.index - b.index : 0))
+                    .map((spot) => (
+                      <SortableItem key={spot.name} spot={spot} />
+                    ))}
+                </ul>
+              </SortableContext>
+            </DndContext>
+          </div>
         </div>
       )}
-      <div className={styles.listContainer}>
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-          <SortableContext items={selectedSpots.map((spot) => spot.name)}>
-            <ul>
-              {selectedSpots
-                .sort((a, b) => (a.index !== null && b.index !== null ? a.index - b.index : 0))
-                .map((spot) => (
-                  <SortableItem key={spot.name} spot={spot} />
-                ))}
-            </ul>
-          </SortableContext>
-        </DndContext>
-      </div>
     </div>
   );
 };
