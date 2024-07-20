@@ -8,13 +8,6 @@
   border-bottom: 2px solid var(--border-color-default);
 }
 
-@media screen and (width <= 600px) {
-  .container {
-    position: relative;
-    z-index: none;
-  }
-}
-
 .main {
   display: flex;
   align-items: center;

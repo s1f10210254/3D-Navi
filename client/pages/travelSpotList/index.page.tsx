@@ -125,18 +125,16 @@ const TravelSpotList = () => {
 
   return (
     <div className={styles.container}>
-      <div>
-        <Header />
-        <div className={styles.main}>
-          <SelectedTravelSpots selectedSpots={selectedSpots} setTravelSpots={setTravelSpots} />
+      <Header />
+      <div className={styles.main}>
+        <SelectedTravelSpots selectedSpots={selectedSpots} setTravelSpots={setTravelSpots} />
 
-          <div className={styles.listContainer}>
-            <h3 className={styles.heading}>行き先を選んでください</h3>
+        <div className={styles.listContainer}>
+          <h3 className={styles.heading}>行き先を選んでください</h3>
 
-            <ul className={styles.list}>
-              {travelSpots.map((spot, index) => renderSpotItem(spot, index))}
-            </ul>
-          </div>
+          <ul className={styles.list}>
+            {travelSpots.map((spot, index) => renderSpotItem(spot, index))}
+          </ul>
         </div>
       </div>
     </div>
