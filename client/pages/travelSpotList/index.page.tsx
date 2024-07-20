@@ -37,7 +37,7 @@ const TravelSpotList = () => {
         <SelectedTravelSpots selectedSpots={selectedSpots} setTravelSpots={setTravelSpots} />
 
         <div className={styles.listContainer}>
-          <h1>TravelSpotList</h1>
+          <h3 className={styles.heading}>行き先を選んでください</h3>
 
           <ul className={styles.list}>
             {travelSpots.map((spot, index) => (

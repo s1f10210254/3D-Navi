@@ -3,7 +3,7 @@
   top: 0;
   height: 60px;
   background: #fff;
-  border-bottom: 1px solid var(--border-color-default);
+  border-bottom: 2px solid var(--border-color-default);
 }
 
 .main {
@@ -22,7 +22,7 @@
   letter-spacing: 0.18em;
 }
 
-@media screen and (width <= 800px) {
+@media screen and (width <= 600px) {
   .appName {
     font-size: 16px;
   }
