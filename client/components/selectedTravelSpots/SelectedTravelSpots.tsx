@@ -13,11 +13,15 @@ import styles from './SelectedTravelSpots.module.css';
 type SelectedTravelSpotsProps = {
   selectedSpots: TravelSpot[];
   setTravelSpots: React.Dispatch<React.SetStateAction<TravelSpot[]>>;
+  onBackPage?: () => void;
+  buttonType?: 'travelSpotList' | 'sightseeingMap';
 };
 
 const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
   selectedSpots,
   setTravelSpots,
+  onBackPage,
+  buttonType = 'travelSpotList',
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -93,15 +97,23 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
     <div className={styles.main}>
       <Loading visible={isLoading} />
       <h2>選択されたスポット</h2>
-      <div className={styles.buttonGroup}>
-        <button onClick={handleDecide} className={styles.button}>
-          行き先決定
-        </button>
+      {buttonType === 'sightseeingMap' ? (
+        <div className={styles.backButton}>
+          <button onClick={onBackPage} className={styles.button}>
+            戻る
+          </button>
+        </div>
+      ) : (
+        <div className={styles.buttonGroup}>
+          <button onClick={handleDecide} className={styles.button}>
+            行き先決定
+          </button>
 
-        <button onClick={handleReset} className={styles.button}>
-          リセット
-        </button>
-      </div>
+          <button onClick={handleReset} className={styles.button}>
+            リセット
+          </button>
+        </div>
+      )}
       <div className={styles.listContainer}>
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={selectedSpots.map((spot) => spot.name)}>
