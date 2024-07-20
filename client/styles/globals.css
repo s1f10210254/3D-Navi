@@ -17,8 +17,8 @@ a {
 }
 
 :root {
-  --border-color-default: #eee;
-  --font-color-default: #336;
+  --main-color: #e95464;
+  --sub-color: #e89e54;
 }
 
 ::-webkit-scrollbar {

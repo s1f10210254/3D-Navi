@@ -27,7 +27,6 @@ const TravelDestination = () => {
         TravelDestination
         <br />
       </h1>
-      {/* ここになにかしらのアイコン画像を入れいる */}
       <img
         src={staticPath.images.undraw_World_re_768g_png}
         alt="world Image"
