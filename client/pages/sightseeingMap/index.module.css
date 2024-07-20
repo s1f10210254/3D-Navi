@@ -1,6 +1,25 @@
-.buttonWrapper {
+.container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  height: 20rem;
+  align-items: center;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  overflow: auto;
+}
+
+.container ::-webkit-scrollbar {
+  display: none;
+}
+
+.main {
+  display: flex;
+  margin-top: 60px;
+}
+
+@media screen and (width <= 800px) {
+  .main {
+    display: inline;
+  }
 }

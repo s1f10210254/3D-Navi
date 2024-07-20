@@ -1,8 +1,33 @@
 /* index.module.css */
 
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  background-color: rgb((233 + 255) / 2.5, (84 + 255) / 2.5, (100 + 255) / 2.5);
+}
+
+@media screen and (width <= 800px) {
+  .main {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    max-height: 15vh;
+    overflow: auto;
+  }
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 中央揃え */
+  text-align: center;
+}
+
 .listItem {
   display: flex;
   align-items: center;
+  justify-content: center; /* 中央揃え */
   margin-bottom: 10px;
 }
 
@@ -17,18 +42,24 @@
 
 .buttonGroup {
   display: flex;
+  flex-direction: column;
   gap: 5px;
 }
 
-.moveButton {
-  padding: 2px 4px;
-  color: white;
-  cursor: pointer;
-  background-color: #007bff;
+.button {
+  width: 100%;
+  color: #fff;
+  background-color: var(--font-color-default);
   border: none;
-  border-radius: 2px;
+  border-radius: 30px;
 }
 
-.moveButton:hover {
-  background-color: #0056b3;
+@media screen and (width <= 800px) {
+  .buttonGroup {
+    flex-direction: row;
+  }
+
+  .button {
+    width: 80%;
+  }
 }
