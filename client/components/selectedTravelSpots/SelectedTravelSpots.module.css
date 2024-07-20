@@ -45,6 +45,7 @@
 }
 
 .buttonGroup {
+  /* z-index: 1; */
   display: flex;
   flex-direction: row;
   gap: 5px;
@@ -57,7 +58,6 @@
 
 .decideButton {
   position: relative;
-  z-index: 1;
   display: block;
   width: 70%;
   padding: 10px 20px;
