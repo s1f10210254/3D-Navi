@@ -1,7 +1,6 @@
 /* index.module.css */
 
 .main {
-  /* position: relative; */
   display: flex;
   flex-direction: column;
   width: 20vw;
