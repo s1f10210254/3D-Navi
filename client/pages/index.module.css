@@ -19,17 +19,6 @@
   margin-top: 60px;
 }
 
-.titleContainer {
-  display: flex;
-  justify-content: center;
-  margin-top: 5%;
-}
-
-.title {
-  font-size: calc(12px + 3vw);
-  font-weight: bold;
-}
-
 .imageBox {
   display: flex;
   justify-content: center;
@@ -45,8 +34,6 @@
   display: flex;
   justify-content: center;
   width: calc(100vw - 20vw);
-
-  /* max-width: 800px; */
   height: calc(100vh - 70vh);
   max-height: 400px;
 }

@@ -8,6 +8,10 @@ function Document() {
       <Head>
         <meta name="description" content={APP_NAME} />
         <link rel="icon" href={staticPath.favicon_png} />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Rampart+One&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <body>
         <Main />

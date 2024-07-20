@@ -18,26 +18,28 @@
 }
 
 .listContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* 中央揃え */
-  text-align: center;
+  padding: 10px;
 }
 
 .listItem {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* 中央揃え */
   margin-bottom: 10px;
+  list-style: none;
+  transition: transform 0.2s ease;
+}
+
+.listItem:hover {
+  cursor: move;
+  background-color: rgb(233 84 100 / 10%);
+  transform: scale(1.05);
 }
 
 .listTitle {
-  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  margin: 0;
   font-weight: bold;
-}
-
-.listDescription {
-  margin-right: 10px;
+  border-radius: 30px; /* 角を丸く */
 }
 
 .buttonGroup {
