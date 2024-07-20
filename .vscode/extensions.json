@@ -2,7 +2,6 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "prisma.prisma",
     "stylelint.vscode-stylelint",
     "yoavbls.pretty-ts-errors",
     "streetsidesoftware.code-spell-checker"

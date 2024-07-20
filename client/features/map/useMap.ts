@@ -3,6 +3,7 @@ import type { LatAndLng, TravelSpot } from 'common/types/travelSpots';
 import mapboxgl from 'mapbox-gl';
 import { useEffect, useRef } from 'react';
 import { staticPath } from 'utils/$path';
+import { NEXT_PUBLIC_MAPBOX_API_KEY } from 'utils/envValues';
 import { createCustomLayer } from './utils/3DCustomLayer';
 import { displayRoute } from './utils/displayRoute';
 import { getZoomAndScaleAndSpeed, twoPointsDistance } from './utils/someVariables';
@@ -19,12 +20,7 @@ const useMap = (
   const carLayerRef = useRef<any>(null);
 
   useEffect(() => {
-    const MAPBOX_API_KEY = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
-    if (MAPBOX_API_KEY === undefined)
-      throw new Error(
-        'Mapbox API key is not defined. Please set NEXT_PUBLIC_MAPBOX_API_KEY in your environment variables',
-      );
-    mapboxgl.accessToken = MAPBOX_API_KEY;
+    mapboxgl.accessToken = NEXT_PUBLIC_MAPBOX_API_KEY;
 
     mapRef.current = new mapboxgl.Map({
       container: mapContainer.current ?? '',
