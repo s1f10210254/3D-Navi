@@ -15,13 +15,18 @@ const TravelDestination = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchTravelSpots = async () => {
-    setIsLoading(true);
-    const res = await apiClient.travelStartingSpot.$post({
-      body: { destination: userDestination },
-    });
-    setTravelSpots(res);
-    router.push(pagesPath.travelSpotList.$url());
-    setIsLoading(false);
+    const checkUserInput = /./;
+    if (checkUserInput.test(userDestination)) {
+      setIsLoading(true);
+      const res = await apiClient.travelStartingSpot.$post({
+        body: { destination: userDestination },
+      });
+      setTravelSpots(res);
+      router.push(pagesPath.travelSpotList.$url());
+      setIsLoading(false);
+    } else {
+      alert('観光地を入力してください');
+    }
   };
 
   return (
