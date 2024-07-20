@@ -103,19 +103,21 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
   };
 
   return (
-    <div>
+    <>
       {isMobile ? (
         <div className={styles.mobileMain}>
-          <div className={styles.hamburgerIcon} onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            &#9776;
+          <div style={{ display: 'flex' }}>
+            <button onClick={handleDecide} className={styles.decideButton}>
+              行き先決定
+            </button>
+            <div className={styles.hamburgerIcon} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              &#9776;
+            </div>
           </div>
+
           {isMenuOpen && (
             <div>
               <div className={styles.mobileMenu}>
-                <button onClick={handleDecide} className={styles.decideButton}>
-                  行き先決定
-                </button>
-
                 <button onClick={handleReset} className={styles.resetButton}>
                   リセット
                 </button>
@@ -182,7 +184,7 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

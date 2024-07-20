@@ -68,6 +68,10 @@
   height: calc(100vh - 40vh);
   max-height: 56.8px;
   border-radius: 15px;
+  outline: 1.5px solid #e95464;
+}
+
+.box:hover {
   outline: 1.5px solid var(--font-color-default);
 }
 
@@ -88,6 +92,10 @@
   border: var(--font-color-default);
   border-left: 1px solid gray;
   border-radius: 0 15px 15px 0;
+}
+
+.inp:focus {
+  outline: none;
 }
 
 .search {
