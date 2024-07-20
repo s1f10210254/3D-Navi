@@ -65,13 +65,16 @@
 .listItem {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
   padding: 10px;
-  margin-bottom: 10px;
   cursor: pointer;
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
-  transition: background-color 0.3s;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
 }
 
 .selected {
@@ -79,31 +82,19 @@
 }
 
 .imagesBox {
-  width: 320px;
-  height: 180px;
-}
-
-@media screen and (width <= 800px) {
-  .imagesBox {
-    width: auto;
-    height: auto;
-    text-align: center;
-  }
-
-  .images {
-    max-width: auto;
-    max-height: auto;
-  }
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
 }
 
 .images {
-  max-width: 320px;
-  max-height: 180px;
-}
-
-.itemHeader {
-  display: flex;
-  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .listTitle {
@@ -113,19 +104,17 @@
 
 .listDescription,
 .listCategory {
-  flex-grow: 1;
   margin: 5px 0;
   font-size: 0.9em;
   line-height: 1.4em;
 }
 
 .listDescription {
-  margin-top: 5px;
-  margin-bottom: 10px;
   color: gray;
 }
 
 .listCategory {
+  margin-bottom: 10px; /* 下部に余白を追加 */
   font-weight: bold;
   color: #333;
 }

@@ -66,15 +66,12 @@ const TravelSpotList = () => {
                     <p>写真なし</p>
                   )}
                 </div>
-
-                <div className={styles.itemHeader}>
-                  {/* <input
+                {/* <input
                     type="checkbox"
                     onChange={() => handleCheckboxChange(index)}
                     checked={spot.isSelected}
                   /> */}
-                  <h2 className={styles.listTitle}>{spot.name}</h2>
-                </div>
+                <h2 className={styles.listTitle}>{spot.name}</h2>
                 <p className={styles.listDescription}>{truncateDescription(spot.description)}</p>
                 <p className={styles.listCategory}>カテゴリ：{spot.categories}</p>
               </li>
