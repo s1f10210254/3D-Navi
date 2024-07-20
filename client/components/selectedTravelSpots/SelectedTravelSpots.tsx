@@ -7,6 +7,7 @@ import { Loading } from 'components/loading/Loading';
 import { useRouter } from 'next/router';
 import type React from 'react';
 import { useState } from 'react';
+import { pagesPath } from 'utils/$path';
 import styles from './SelectedTravelSpots.module.css';
 
 type SelectedTravelSpotsProps = {
@@ -78,7 +79,7 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
 
   const handleDecide = () => {
     setIsLoading(true);
-    router.push('/sightseeingMap');
+    router.push(pagesPath.sightseeingMap.$url());
     setIsLoading(false);
   };
 

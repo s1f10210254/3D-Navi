@@ -16,7 +16,7 @@ const MapBoxMap = ({ allDestinationSpots, currentLocation }: MapBoxMapProps) => 
 
   // const router = useRouter();
   // const onBackPage = () => {
-  //   router.push('/travelSpotList');
+  //   router.push(pagesPath.travelSpotList.$url());
   // };
 
   return (

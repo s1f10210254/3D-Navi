@@ -3,7 +3,7 @@ import { Loading } from 'components/loading/Loading';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { staticPath } from 'utils/$path';
+import { pagesPath, staticPath } from 'utils/$path';
 import { apiClient } from 'utils/apiClient';
 import { travelSpotsAtom } from 'utils/travelSpotsAtom';
 import styles from './index.module.css';
@@ -20,7 +20,7 @@ const TravelDestination = () => {
       body: { destination: userDestination },
     });
     setTravelSpots(res);
-    router.push('/travelSpotList');
+    router.push(pagesPath.travelSpotList.$url());
     setIsLoading(false);
   };
 
