@@ -9,23 +9,9 @@ const TravelSpotList = () => {
   const [travelSpots, setTravelSpots] = useAtom<TravelSpot[]>(travelSpotsAtom);
   const selectedSpots = getSelectedTravelSpots(travelSpots);
 
-  // const handleCheckboxChange = (index: number) => {
-  //   setTravelSpots((prevTravelSpots) =>
-  //     prevTravelSpots.map((spot, i) =>
-  //       i === index
-  //         ? {
-  //             ...spot,
-  //             isSelected: !spot.isSelected,
-  //             index: !spot.isSelected ? prevTravelSpots.filter((s) => s.isSelected).length : null,
-  //           }
-  //         : spot,
-  //     ),
-  //   );
-  // };
-
   const handleItemClick = (index: number) => {
-    setTravelSpots((prevTravelSpots) =>
-      prevTravelSpots.map((spot, i) =>
+    setTravelSpots((prevTravelSpots) => {
+      const updatedSpots = prevTravelSpots.map((spot, i) =>
         i === index
           ? {
               ...spot,
@@ -33,14 +19,16 @@ const TravelSpotList = () => {
               index: !spot.isSelected ? prevTravelSpots.filter((s) => s.isSelected).length : null,
             }
           : spot,
-      ),
-    );
-  };
-  const truncateDescription = (description: string) => {
-    const maxLength = window.innerWidth <= 800 ? 50 : 800;
-    return description.length > maxLength
-      ? `${description.substring(0, maxLength)}...`
-      : description;
+      );
+
+      // インデックスが null の場合に再計算
+      const selectedSpots = updatedSpots.filter((spot) => spot.isSelected);
+      selectedSpots.forEach((spot, idx) => {
+        spot.index = idx;
+      });
+
+      return updatedSpots;
+    });
   };
   return (
     <div className={styles.container}>
@@ -53,7 +41,6 @@ const TravelSpotList = () => {
 
           <ul className={styles.list}>
             {travelSpots.map((spot, index) => (
-              // <li key={index} className={styles.listItem}>
               <li
                 key={index}
                 className={`${styles.listItem} ${spot.isSelected ? styles.selected : ''}`}
@@ -66,13 +53,8 @@ const TravelSpotList = () => {
                     <p>写真なし</p>
                   )}
                 </div>
-                {/* <input
-                    type="checkbox"
-                    onChange={() => handleCheckboxChange(index)}
-                    checked={spot.isSelected}
-                  /> */}
                 <h2 className={styles.listTitle}>{spot.name}</h2>
-                <p className={styles.listDescription}>{truncateDescription(spot.description)}</p>
+                <p className={styles.listDescription}>{spot.description}</p>
                 <p className={styles.listCategory}>カテゴリ：{spot.categories}</p>
               </li>
             ))}

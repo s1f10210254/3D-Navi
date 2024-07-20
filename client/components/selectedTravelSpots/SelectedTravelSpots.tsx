@@ -74,9 +74,10 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
 
     return (
       <li ref={setNodeRef} style={style} {...attributes} {...listeners} className={styles.listItem}>
-        <p className={styles.listTitle}>
-          {spot.index !== null ? spot.index + 1 : ''}.{spot.name}
-        </p>
+        <h3 className={styles.listTitle}>
+          {spot.index !== null ? `${spot.index + 1}. ` : ''}
+          {spot.name}
+        </h3>
       </li>
     );
   };

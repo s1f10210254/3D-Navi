@@ -29,10 +29,6 @@ const TravelDestination = () => {
       <Loading visible={isLoading} />
       <Header />
       <div className={styles.main}>
-        <div className={styles.titleContainer}>
-          <div className={styles.title}>TravelDestination</div>
-        </div>
-
         <div className={styles.imageBox}>
           <img
             src={staticPath.images.undraw_World_re_768g_png}
