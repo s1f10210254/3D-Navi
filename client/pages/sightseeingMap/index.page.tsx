@@ -52,6 +52,7 @@ const SightseeingMap = () => {
             selectedSpots={selectedSpots}
             setTravelSpots={setTravelSpots}
             buttonType={buttonType}
+            onBackPage={onBackPage}
           />
         ) : (
           <SelectedTravelSpots
