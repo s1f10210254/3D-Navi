@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { pagesPath, staticPath } from 'utils/$path';
 import { apiClient } from 'utils/apiClient';
-import { isMobileAtom, travelSpotsAtom } from 'utils/travelSpotsAtom';
+import { isMobileAtom, travelSpotsAtom } from 'utils/Atom';
 import styles from './index.module.css';
 
 const TravelDestination = () => {

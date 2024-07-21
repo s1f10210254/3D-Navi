@@ -3,19 +3,11 @@
 .main {
   display: flex;
   flex-direction: column;
-  width: 20vw;
+  width: 100vw;
+  max-height: calc(100vh - 60px);
+  overflow: auto;
   background-color: rgb(247 236 237);
   border-radius: 10px;
-}
-
-@media screen and (width <= 600px) {
-  .main {
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    max-height: 15vh;
-    overflow: auto;
-  }
 }
 
 .listContainer {
@@ -139,6 +131,24 @@
 
 .backButton:hover {
   background-color: rgb(233 84 100 / 10%);
+}
+
+.hamburgerButton {
+  display: block;
+  width: 30px;
+  height: 30px;
+  font-size: 24px;
+  color: var(--font-color-default);
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.resetButtonContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
 }
 
 @media screen and (width <= 800px) {

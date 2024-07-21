@@ -1,11 +1,12 @@
 import type { TravelSpot } from 'common/types/travelSpots';
 import { Header } from 'components/header/Header';
+import SelectedTravelSpotsMobile from 'components/mobile/selectedTravelSpotMobile/SelectedTravelSpotsMobile';
 import SelectedTravelSpots from 'components/selectedTravelSpots/SelectedTravelSpots';
 import { useAtom } from 'jotai';
 import styles from 'pages/travelSpotList/index.module.css';
 import { useState } from 'react';
+import { isMobileAtom, travelSpotsAtom } from 'utils/Atom';
 import { getSelectedTravelSpots } from 'utils/selectedTravelSpots';
-import { isMobileAtom, travelSpotsAtom } from 'utils/travelSpotsAtom';
 const TravelSpotList = () => {
   const [travelSpots, setTravelSpots] = useAtom<TravelSpot[]>(travelSpotsAtom);
   const selectedSpots = getSelectedTravelSpots(travelSpots);
@@ -123,7 +124,14 @@ const TravelSpotList = () => {
     <div className={styles.container}>
       <Header />
       <div className={styles.main}>
-        <SelectedTravelSpots selectedSpots={selectedSpots} setTravelSpots={setTravelSpots} />
+        {isMobile ? (
+          <SelectedTravelSpotsMobile
+            selectedSpots={selectedSpots}
+            setTravelSpots={setTravelSpots}
+          />
+        ) : (
+          <SelectedTravelSpots selectedSpots={selectedSpots} setTravelSpots={setTravelSpots} />
+        )}
 
         <div className={styles.listContainer}>
           <h3 className={styles.heading}>行き先を選んでください</h3>

@@ -1,13 +1,14 @@
 import type { LatAndLng, TravelSpot } from 'common/types/travelSpots';
 import { Header } from 'components/header/Header';
 import { Loading } from 'components/loading/Loading';
+import SelectedTravelSpotsMobile from 'components/mobile/selectedTravelSpotMobile/SelectedTravelSpotsMobile';
 import SelectedTravelSpots from 'components/selectedTravelSpots/SelectedTravelSpots';
 import MapBoxMap from 'features/map/MapBoxMap';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { isMobileAtom, travelSpotsAtom } from 'utils/Atom';
 import { getSelectedTravelSpots } from 'utils/selectedTravelSpots';
-import { travelSpotsAtom } from 'utils/travelSpotsAtom';
 import styles from './index.module.css';
 
 const SightseeingMap = () => {
@@ -15,6 +16,7 @@ const SightseeingMap = () => {
   const [travelSpots, setTravelSpots] = useAtom<TravelSpot[]>(travelSpotsAtom);
   const selectedSpots = getSelectedTravelSpots(travelSpots);
   const [isLoading, setIsLoading] = useState(false);
+  const [isMobile] = useAtom(isMobileAtom);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -45,12 +47,21 @@ const SightseeingMap = () => {
       <Loading visible={isLoading} />
       <Header />
       <div className={styles.main}>
-        <SelectedTravelSpots
-          selectedSpots={selectedSpots}
-          setTravelSpots={setTravelSpots}
-          buttonType={buttonType}
-          onBackPage={onBackPage}
-        />
+        {isMobile ? (
+          <SelectedTravelSpotsMobile
+            selectedSpots={selectedSpots}
+            setTravelSpots={setTravelSpots}
+            buttonType={buttonType}
+          />
+        ) : (
+          <SelectedTravelSpots
+            selectedSpots={selectedSpots}
+            setTravelSpots={setTravelSpots}
+            buttonType={buttonType}
+            onBackPage={onBackPage}
+          />
+        )}
+
         <MapBoxMap allDestinationSpots={selectedSpots} currentLocation={currentLocation} />
       </div>
     </div>

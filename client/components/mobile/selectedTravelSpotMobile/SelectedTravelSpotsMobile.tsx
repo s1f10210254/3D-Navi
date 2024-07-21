@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import type React from 'react';
 import { useState } from 'react';
 import { pagesPath } from 'utils/$path';
-import styles from './SelectedTravelSpots.module.css';
+import styles from './SelectedTravelSpotsMobile.module.css';
 
 type SelectedTravelSpotsProps = {
   selectedSpots: TravelSpot[];
@@ -17,13 +17,14 @@ type SelectedTravelSpotsProps = {
   buttonType?: 'travelSpotList' | 'sightseeingMap';
 };
 
-const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
+const SelectedTravelSpotsMobile: React.FC<SelectedTravelSpotsProps> = ({
   selectedSpots,
   setTravelSpots,
   onBackPage,
   buttonType = 'travelSpotList',
 }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
 
   const sensors = useSensors(
@@ -92,47 +93,54 @@ const SelectedTravelSpots: React.FC<SelectedTravelSpotsProps> = ({
     }
   };
 
-  const handleReset = () => {
-    setTravelSpots((prevTravelSpots) =>
-      prevTravelSpots.map((spot) => ({ ...spot, isSelected: false, index: null })),
-    );
-  };
-
   return (
     <div className={styles.main}>
       <Loading visible={isLoading} />
-      {buttonType === 'sightseeingMap' ? (
-        <div className={styles.backButtonContainer}>
-          <button onClick={onBackPage} className={styles.backButton}>
-            行き先選択に戻る
-          </button>
-        </div>
-      ) : (
-        <div className={styles.buttonGroup}>
-          <button onClick={handleDecide} className={styles.decideButton}>
-            行き先決定
-          </button>
+      <div className={styles.buttonGroup}>
+        <button onClick={handleDecide} className={styles.decideButton}>
+          行き先決定
+        </button>
 
-          <button onClick={handleReset} className={styles.resetButton}>
-            リセット
-          </button>
-        </div>
-      )}
-      <div className={styles.listContainer}>
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-          <SortableContext items={selectedSpots.map((spot) => spot.name)}>
-            <ul>
-              {selectedSpots
-                .sort((a, b) => (a.index !== null && b.index !== null ? a.index - b.index : 0))
-                .map((spot) => (
-                  <SortableItem key={spot.name} spot={spot} />
-                ))}
-            </ul>
-          </SortableContext>
-        </DndContext>
+        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={styles.hamburgerButton}>
+          &#9776; {/* ハンバーガーアイコン */}
+        </button>
       </div>
+      {isMenuOpen && (
+        <>
+          {buttonType === 'sightseeingMap' ? (
+            <div className={styles.backButtonContainer}>
+              <button onClick={onBackPage} className={styles.backButton}>
+                行き先選択に戻る
+              </button>
+            </div>
+          ) : (
+            <div className={styles.resetButtonContainer}>
+              <button onClick={() => setTravelSpots([])} className={styles.resetButton}>
+                リセット
+              </button>
+            </div>
+          )}
+          <div className={styles.listContainer}>
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext items={selectedSpots.map((spot) => spot.name)}>
+                <ul>
+                  {selectedSpots
+                    .sort((a, b) => (a.index !== null && b.index !== null ? a.index - b.index : 0))
+                    .map((spot) => (
+                      <SortableItem key={spot.name} spot={spot} />
+                    ))}
+                </ul>
+              </SortableContext>
+            </DndContext>
+          </div>
+        </>
+      )}
     </div>
   );
 };
 
-export default SelectedTravelSpots;
+export default SelectedTravelSpotsMobile;
