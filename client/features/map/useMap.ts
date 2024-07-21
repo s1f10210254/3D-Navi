@@ -1,7 +1,7 @@
 import MapboxLanguage from '@mapbox/mapbox-gl-language';
 import type { LatAndLng, TravelSpot } from 'common/types/travelSpots';
 import mapboxgl from 'mapbox-gl';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { staticPath } from 'utils/$path';
 import { NEXT_PUBLIC_MAPBOX_API_KEY } from 'utils/envValues';
 import { createCustomLayer } from './utils/3DCustomLayer';
@@ -18,6 +18,7 @@ const useMap = (
   const mapRef = useRef<mapboxgl.Map | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const carLayerRef = useRef<any>(null);
+  const [isCarMoving, setIsCarMoving] = useState(false);
 
   useEffect(() => {
     mapboxgl.accessToken = NEXT_PUBLIC_MAPBOX_API_KEY;
@@ -60,46 +61,63 @@ const useMap = (
           spot.location.latitude,
         ]);
         waypoints.unshift([currentLocation.longitude, currentLocation.latitude]);
-        await displayRoute(mapRef.current, waypoints, carLayerRef);
+        await displayRoute(mapRef.current, waypoints, carLayerRef, setIsCarMoving);
       }
     });
 
-    const distances = allDestinationSpots.map((spot) => {
-      return twoPointsDistance(
-        { latitude: currentLocation.latitude, longitude: currentLocation.longitude },
-        { latitude: spot.location.latitude, longitude: spot.location.longitude },
-      );
-    });
-    const mostLargeDistance = Math.max(...distances);
-
-    const { scale } = getZoomAndScaleAndSpeed(mostLargeDistance);
-
-    const carCustomLayer = createCustomLayer(
-      mapRef,
-      currentLocation,
-      staticPath.models.car.scene_gltf,
-      scale,
-    );
-
-    mapRef.current.on('load', () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      mapRef.current?.addLayer(carCustomLayer as any, 'waterway-label');
-      carLayerRef.current = carCustomLayer;
-    });
+    // 依存配列から isCarMoving を除外
     return () => {
       mapRef.current?.remove();
     };
-  }, [
-    allDestinationSpots,
-    currentLocation,
-    mapContainer,
-    mapRef,
-    markerRef,
-    currentLocationElement,
-    carLayerRef,
-  ]);
+  }, [allDestinationSpots, currentLocation, mapContainer, markerRef, currentLocationElement]);
 
-  return {};
+  useEffect(() => {
+    if (mapRef.current) {
+      const distances = allDestinationSpots.map((spot) => {
+        return twoPointsDistance(
+          { latitude: currentLocation.latitude, longitude: currentLocation.longitude },
+          { latitude: spot.location.latitude, longitude: spot.location.longitude },
+        );
+      });
+      const mostLargeDistance = Math.max(...distances);
+
+      const { scale } = getZoomAndScaleAndSpeed(mostLargeDistance);
+
+      const carCustomLayer = createCustomLayer(
+        mapRef,
+        currentLocation,
+        staticPath.models.car.scene_gltf,
+        scale,
+      );
+
+      mapRef.current.on('load', () => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        mapRef.current?.addLayer(carCustomLayer as any, 'waterway-label');
+        carLayerRef.current = carCustomLayer;
+        setIsCarMoving(false);
+      });
+
+      // 車が停止した場合にズームする処理
+      if (!isCarMoving && mapRef.current) {
+        const LastDestinationLocation =
+          allDestinationSpots[allDestinationSpots.length - 1].location;
+        const latAndLng = {
+          lat: LastDestinationLocation.latitude,
+          lng: LastDestinationLocation.longitude,
+        };
+
+        mapRef.current.easeTo({
+          center: latAndLng,
+          zoom: mapRef.current.getZoom() + 1, // 例: 現在のズームレベルに1を加える
+          duration: 1000,
+          pitch: 70,
+          bearing: 180,
+        });
+      }
+    }
+  }, [isCarMoving, currentLocation, allDestinationSpots]);
+
+  return { isCarMoving };
 };
 
 export default useMap;
