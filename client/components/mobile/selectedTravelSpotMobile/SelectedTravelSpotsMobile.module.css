@@ -1,0 +1,148 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  max-height: calc(100vh - 60px);
+  overflow: auto;
+  background-color: rgb(247 236 237);
+  border-radius: 10px;
+}
+
+.listContainer {
+  padding: 10px;
+}
+
+.listItem {
+  margin-bottom: 10px;
+  list-style: none;
+  border-radius: 10px;
+  transition: transform 0.2s ease;
+}
+
+.listItem:hover {
+  cursor: move;
+  background-color: rgb(233 84 100 / 10%);
+  transform: scale(1.05);
+}
+
+.listTitle {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  margin: 0;
+  font-weight: bold;
+  border-radius: 30px; /* 角を丸く */
+}
+
+.buttonGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.commonButton {
+  position: relative;
+  display: block;
+  width: 70%;
+  padding: 10px 20px;
+  margin: 0 5px;
+  overflow: hidden;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid var(--font-color-default);
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.commonButton::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  content: '';
+  transition: all 0.3s;
+  transform: translateX(-100%);
+}
+
+.decideButton {
+  background-color: var(--font-color-default);
+}
+
+.decideButton::before {
+  background-color: rgb(233 84 100 / 70%);
+}
+
+.decideButton:hover::before {
+  transform: translateX(0);
+}
+
+.resetButton {
+  display: block;
+  width: 30%;
+  padding: 5px 10px;
+  margin: 0 5px;
+  font-weight: normal;
+  color: var(--font-color-default);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid var(--font-color-default);
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.resetButton:hover {
+  background-color: rgb(233 84 100 / 10%);
+}
+
+.backButton {
+  color: var(--font-color-default);
+  background-color: transparent;
+  border: 1px solid var(--font-color-default);
+}
+
+.backButton:hover {
+  background-color: rgb(233 84 100 / 10%);
+}
+
+.resetButtonContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.summaryButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  padding-top: 3px;
+  padding-left: 30px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.summaryBtn {
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.summaryButton ::marker {
+  padding-left: 10px;
+  font-size: 40px;
+}

@@ -2,10 +2,10 @@ import { Header } from 'components/header/Header';
 import { Loading } from 'components/loading/Loading';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { pagesPath, staticPath } from 'utils/$path';
 import { apiClient } from 'utils/apiClient';
-import { travelSpotsAtom } from 'utils/travelSpotsAtom';
+import { isMobileAtom, travelSpotsAtom } from 'utils/Atom';
 import styles from './index.module.css';
 
 const TravelDestination = () => {
@@ -13,6 +13,7 @@ const TravelDestination = () => {
   const [, setTravelSpots] = useAtom(travelSpotsAtom);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [, setIsMobile] = useAtom(isMobileAtom);
 
   const fetchTravelSpots = async () => {
     const checkUserInput = /./;
@@ -28,6 +29,17 @@ const TravelDestination = () => {
       alert('観光地を入力してください');
     }
   };
+
+  useEffect(() => {
+    const checkMobile = () => {
+      if (window.innerWidth <= 600) {
+        setIsMobile(true);
+      }
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, [setIsMobile]);
 
   return (
     <div className={styles.container}>

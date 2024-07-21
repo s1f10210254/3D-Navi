@@ -6,7 +6,7 @@
 @media screen and (width <= 600px) {
   .map {
     width: 100vw;
-    height: calc(100vh - 60px - 15vh);
+    height: calc(100vh - 60px - 8vh);
   }
 }
 
