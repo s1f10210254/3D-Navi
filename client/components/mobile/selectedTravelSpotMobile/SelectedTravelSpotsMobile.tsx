@@ -109,9 +109,10 @@ const SelectedTravelSpotsMobile: React.FC<SelectedTravelSpotsProps> = ({
             行き先決定
           </button>
         )}
-        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={styles.hamburgerButton}>
-          &#9776; {/* ハンバーガーアイコン */}
-        </button>
+
+        <details onClick={() => setIsMenuOpen(!isMenuOpen)} className={styles.summaryButton}>
+          <summary className={styles.summaryBtn} />
+        </details>
       </div>
 
       {isMenuOpen && (
