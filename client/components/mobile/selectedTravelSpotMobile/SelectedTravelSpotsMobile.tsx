@@ -96,29 +96,36 @@ const SelectedTravelSpotsMobile: React.FC<SelectedTravelSpotsProps> = ({
   return (
     <div className={styles.main}>
       <Loading visible={isLoading} />
-      {buttonType === 'sightseeingMap' ? (
-        <div className={styles.backButtonContainer}>
-          <button onClick={onBackPage} className={styles.backButton}>
+      <div className={styles.buttonGroup}>
+        {buttonType === 'sightseeingMap' ? (
+          <button onClick={onBackPage} className={`${styles.commonButton} ${styles.backButton}`}>
             行き先選択に戻る
           </button>
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={styles.hamburgerButton}>
-            &#9776; {/* ハンバーガーアイコン */}
-          </button>
-        </div>
-      ) : (
-        <div className={styles.buttonGroup}>
-          <button onClick={handleDecide} className={styles.decideButton}>
+        ) : (
+          <button
+            onClick={handleDecide}
+            className={`${styles.commonButton} ${styles.decideButton}`}
+          >
             行き先決定
           </button>
-
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={styles.hamburgerButton}>
-            &#9776; {/* ハンバーガーアイコン */}
-          </button>
-        </div>
-      )}
+        )}
+        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={styles.hamburgerButton}>
+          &#9776; {/* ハンバーガーアイコン */}
+        </button>
+      </div>
 
       {isMenuOpen && (
         <>
+          {buttonType !== 'sightseeingMap' && (
+            <div className={styles.resetButtonContainer}>
+              <button
+                onClick={() => setTravelSpots([])}
+                className={`${styles.commonButton} ${styles.resetButton}`}
+              >
+                リセット
+              </button>
+            </div>
+          )}
           <div className={styles.listContainer}>
             <DndContext
               sensors={sensors}

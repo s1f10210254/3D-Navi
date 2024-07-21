@@ -1,5 +1,3 @@
-/* index.module.css */
-
 .main {
   display: flex;
   flex-direction: column;
@@ -37,35 +35,31 @@
 }
 
 .buttonGroup {
-  /* z-index: 1; */
   display: flex;
-  flex-direction: row;
-  gap: 5px;
   justify-content: center;
   width: 100%;
-  padding-right: 10px;
-  padding-left: 10px;
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-.decideButton {
+.commonButton {
   position: relative;
   display: block;
   width: 70%;
   padding: 10px 20px;
+  margin: 0 5px;
   overflow: hidden;
   font-weight: bold;
   color: #fff;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  background-color: var(--font-color-default);
   border: 2px solid var(--font-color-default);
   border-radius: 10px;
   transition: background-color 0.3s ease;
 }
 
-.decideButton::before {
+.commonButton::before {
   position: absolute;
   top: 0;
   left: 0;
@@ -73,23 +67,27 @@
   width: 100%;
   height: 100%;
   content: '';
-  background-color: rgb(233 84 100 / 70%);
   transition: all 0.3s;
   transform: translateX(-100%);
+}
+
+.decideButton {
+  background-color: var(--font-color-default);
+}
+
+.decideButton::before {
+  background-color: rgb(233 84 100 / 70%);
 }
 
 .decideButton:hover::before {
   transform: translateX(0);
 }
 
-.decideButton:hover {
-  color: #fff;
-}
-
 .resetButton {
   display: block;
   width: 30%;
-  padding: 3px 5px;
+  padding: 5px 10px;
+  margin: 0 5px;
   font-weight: normal;
   color: var(--font-color-default);
   text-align: center;
@@ -105,28 +103,10 @@
   background-color: rgb(233 84 100 / 10%);
 }
 
-.backButtonContainer {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-top: 20px;
-}
-
 .backButton {
-  display: block;
-  width: 100%;
-  padding: 10px 20px;
-  margin-right: 15%;
-  margin-left: 15%;
-  font-weight: normal;
   color: var(--font-color-default);
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
   background-color: transparent;
   border: 1px solid var(--font-color-default);
-  border-radius: 10px;
-  transition: background-color 0.3s ease;
 }
 
 .backButton:hover {
@@ -134,10 +114,12 @@
 }
 
 .hamburgerButton {
-  display: block;
-  width: 30px;
-  height: 30px;
-  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%; /* ボタンの1/3の大きさに設定 */
+  height: 30px; /* ボタンの1/3の大きさに設定 */
+  font-size: 48px; /* アイコンサイズを調整 */
   color: var(--font-color-default);
   cursor: pointer;
   background-color: transparent;
@@ -149,35 +131,4 @@
   justify-content: center;
   width: 100%;
   margin-top: 20px;
-}
-
-@media screen and (width <= 800px) {
-  .buttonGroup {
-    display: block;
-  }
-
-  .decideButton,
-  .resetButton {
-    width: 100%;
-    margin-top: 5%;
-  }
-}
-
-@media screen and (width <= 600px) {
-  .buttonGroup {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .backButton {
-    align-items: center;
-  }
-
-  .decideButton {
-    width: 60%;
-  }
-
-  .resetButton {
-    width: 30%;
-  }
 }
