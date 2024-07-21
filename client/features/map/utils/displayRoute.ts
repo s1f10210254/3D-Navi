@@ -10,6 +10,7 @@ export const displayRoute = async (
   waypoints: [number, number][],
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   carLayerRef: RefObject<any>,
+  setIsCarMoving: (isMoving: boolean) => void,
 ) => {
   const coords = waypoints.map((point) => point.join(',')).join(';');
   const requestUrl = new URL(
@@ -89,6 +90,7 @@ export const displayRoute = async (
 
   const moveCar = () => {
     if (step <= steps) {
+      setIsCarMoving(true);
       const segment = turf.along(line, interval * step);
       const coords = segment.geometry.coordinates;
       const nextSegment = turf.along(line, interval * (step + 1));
@@ -103,6 +105,8 @@ export const displayRoute = async (
       carLayerRef.current.updateCamera([coords[0], coords[1]]);
       step += 1;
       requestAnimationFrame(moveCar);
+    } else {
+      setIsCarMoving(false);
     }
   };
   moveCar();

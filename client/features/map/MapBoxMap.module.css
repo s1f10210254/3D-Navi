@@ -3,11 +3,20 @@
   height: calc(100vh - 60px);
 }
 
-@media screen and (width <= 600px) {
-  .map {
-    width: 100vw;
-    height: calc(100vh - 60px - 8vh);
-  }
+.travelResult {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1%;
+  background-color: #f7eced;
+  border-radius: 5%;
+}
+
+.none {
+  display: none;
 }
 
 .destinationPin {
@@ -88,4 +97,23 @@
   content: ' ';
   background: #fff;
   border-radius: 50%;
+}
+
+@media screen and (width <= 600px) {
+  .map {
+    width: 100vw;
+    height: calc(100vh - 60px - 8vh);
+  }
+
+  .travelResult {
+    position: absolute;
+    top: 30%;
+    left: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1%;
+    background-color: #f7eced;
+    border-radius: 5%;
+  }
 }
