@@ -35,6 +35,7 @@
   justify-content: center;
   width: calc(100vw - 20vw);
   height: calc(100vh - 70vh);
+  min-height: 250px;
   max-height: 400px;
 }
 
@@ -79,7 +80,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20%;
+  width: 10vh;
   height: 100%;
   font-weight: 500;
   text-align: center;
@@ -89,6 +90,7 @@
   width: 80%;
   height: 100%;
   padding-left: 3%;
+  font-size: 18px;
   border: var(--font-color-default);
   border-left: 1px solid gray;
   border-radius: 0 15px 15px 0;
@@ -103,6 +105,8 @@
   height: 20%;
   margin-top: 5%;
   margin-bottom: 5%;
+  font-size: calc(12px + 0.5vh);
+  font-weight: 600;
   color: white;
   cursor: pointer;
   background-color: #e95464;
