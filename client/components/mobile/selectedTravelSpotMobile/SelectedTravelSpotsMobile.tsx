@@ -96,7 +96,11 @@ const SelectedTravelSpotsMobile: React.FC<SelectedTravelSpotsProps> = ({
   return (
     <div className={styles.main}>
       <Loading visible={isLoading} />
+
       <div className={styles.buttonGroup}>
+        <details onClick={() => setIsMenuOpen(!isMenuOpen)} className={styles.summaryButton}>
+          <summary className={styles.summaryBtn} />
+        </details>
         {buttonType === 'sightseeingMap' ? (
           <button onClick={onBackPage} className={`${styles.commonButton} ${styles.backButton}`}>
             行き先選択に戻る
@@ -109,10 +113,6 @@ const SelectedTravelSpotsMobile: React.FC<SelectedTravelSpotsProps> = ({
             行き先決定
           </button>
         )}
-
-        <details onClick={() => setIsMenuOpen(!isMenuOpen)} className={styles.summaryButton}>
-          <summary className={styles.summaryBtn} />
-        </details>
       </div>
 
       {isMenuOpen && (
