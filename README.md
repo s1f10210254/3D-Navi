@@ -1,3 +1,6 @@
+スライド
+https://www.canva.com/design/DAGLfcddF6I/yUseUQCzDoJkJc-dHXI-LA/view?utm_content=DAGLfcddF6I&utm_campaign=designshare&utm_medium=link&utm_source=editor
+
 # 3Dなび
 
 目的地を入力し、観光地を選択、現在地から目的地までの経路を3Dで表示するWebアプリケーションです。
